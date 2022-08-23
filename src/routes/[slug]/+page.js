@@ -336,7 +336,18 @@ export async function load({ params }) {
 		{
 			name: 'French Fries',
 			image: 'https://upload.wikimedia.org/wikipedia/commons/7/73/SupermaketFries.jpg'
-		}
+		},
+		{
+			name: 'French Toast',
+			image:
+				'https://www.thespruceeats.com/thmb/XGw9RhFWrvULPVBgPRW34_Tv9L8=/2000x1125/smart/filters:no_upscale()/cinnamon-french-toast-sticks-2k-56a8c3855f9b58b7d0f4e838.jpg'
+		},
+		{
+			name: 'Hash Brown',
+			image:
+				'https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-HASH-BROWNS-1:1-3-product-tile-desktop?wid=829&hei=515&dpr=off'
+		},
+    {name: 'Garden Salad', image: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-beet-salad-jpg-1526059794.jpg'}
 	];
 	const options = {
 		includeScore: true,
