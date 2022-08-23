@@ -251,7 +251,7 @@ export async function load({ params }) {
 	let images = [
 		{
 			name: 'Chicken Patty Sandwich',
-      alternateName: 'Spicy Chicken Sandwich',
+			alternateName: 'Spicy Chicken Sandwich',
 			image:
 				'https://mrs.mdek12.org//images/made/photos_recipes/2015_732_chicken_patty_sandwich_300_200_int_c1.jpg'
 		},
@@ -361,7 +361,10 @@ export async function load({ params }) {
 			name: 'Italian Dressing',
 			image: 'https://cdn.loveandlemons.com/wp-content/uploads/2020/08/italian-dressing.jpg'
 		},
-    {name: 'Balsamic Dressing', image: 'https://www.onceuponachef.com/images/2022/03/balsamic-vinaigrette-1200x817.jpg'},
+		{
+			name: 'Balsamic Dressing',
+			image: 'https://www.onceuponachef.com/images/2022/03/balsamic-vinaigrette-1200x817.jpg'
+		},
 		{
 			name: 'Milk',
 			image: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/296/296564/milk.jpg'
@@ -370,7 +373,17 @@ export async function load({ params }) {
 			name: 'Chocolate Milk',
 			image:
 				'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-2021-chocolatemilk-036-1615340969.jpg'
-		}
+		},
+		{
+			name: 'Baked Potato',
+			image:
+				'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2013/10/8/0/fnk_baked-potato_s4x3.jpg.rend.hgtvcom.616.462.suffix/1383780369940.jpeg'
+		},
+    {
+      name: 'Rice',
+      alternateName: 'Mexi-Cali Rice',
+      image: 'https://www.seriouseats.com/thmb/quM8-Bh0abni-O0ikBpJn0KaH00=/1500x844/smart/filters:no_upscale()/easy-vegetable-fried-rice-recipe-hero-2-fed2a62b8bce4c51b945d9c24c2edb68.jpg'
+    }
 	];
 	const options = {
 		includeScore: true,
