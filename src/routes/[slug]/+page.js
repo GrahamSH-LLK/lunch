@@ -241,8 +241,6 @@ export async function load({ params }) {
 				'sec-fetch-mode': 'cors',
 				'sec-fetch-site': 'cross-site'
 			},
-			referrer: 'https://www.schoolnutritionandfitness.com/',
-			referrerPolicy: 'strict-origin-when-cross-origin',
 			body: null,
 			method: 'POST',
 		}
