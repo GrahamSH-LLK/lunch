@@ -251,18 +251,14 @@ export async function load({ params }) {
 	let images = [
 		{
 			name: 'Chicken Patty Sandwich',
+      alternateName: 'Spicy Chicken Sandwich',
 			image:
-				'https://www.foxvalleyfoodie.com/wp-content/uploads/2020/10/homemade-chicken-patties-feature.jpg'
+				'https://mrs.mdek12.org//images/made/photos_recipes/2015_732_chicken_patty_sandwich_300_200_int_c1.jpg'
 		},
 		{
 			name: "General Tso's Chicken with Fried Rice",
 			image:
 				'https://www.recipetineats.com/wp-content/uploads/2020/10/General-Tsao-Chicken_1-SQ.jpg'
-		},
-		{
-			name: 'Spicy Chicken Sandwich',
-			image:
-				'https://www.foxvalleyfoodie.com/wp-content/uploads/2020/10/homemade-chicken-patties-feature.jpg'
 		},
 		{
 			name: 'Cheeseburger on Bun',
