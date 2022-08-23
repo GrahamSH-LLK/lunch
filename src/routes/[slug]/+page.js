@@ -347,7 +347,34 @@ export async function load({ params }) {
 			image:
 				'https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-HASH-BROWNS-1:1-3-product-tile-desktop?wid=829&hei=515&dpr=off'
 		},
-    {name: 'Garden Salad', image: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-beet-salad-jpg-1526059794.jpg'}
+		{
+			name: 'Garden Salad',
+			image:
+				'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-beet-salad-jpg-1526059794.jpg'
+		},
+		{
+			name: 'Ranch Dressing',
+			image: 'https://images-gmi-pmc.edge-generalmills.com/6baa2d3b-2beb-4875-9318-f7eee148c00b.jpg'
+		},
+		{
+			name: 'Lite Caeser Dressing',
+			image:
+				'https://www.inspiredtaste.net/wp-content/uploads/2020/07/Homemade-Caesar-Dressing-Recipe-6-1200.jpg'
+		},
+		{
+			name: 'Italian Dressing',
+			image: 'https://cdn.loveandlemons.com/wp-content/uploads/2020/08/italian-dressing.jpg'
+		},
+    {name: 'Balsamic Dressing', image: 'https://www.onceuponachef.com/images/2022/03/balsamic-vinaigrette-1200x817.jpg'},
+		{
+			name: 'Milk',
+			image: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/296/296564/milk.jpg'
+		},
+		{
+			name: 'Chocolate Milk',
+			image:
+				'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-2021-chocolatemilk-036-1615340969.jpg'
+		}
 	];
 	const options = {
 		includeScore: true,
