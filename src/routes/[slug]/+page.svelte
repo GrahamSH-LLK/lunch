@@ -34,7 +34,7 @@
 				<div class="flex overflow-scroll w-full">
 					{#each category.items as meal}
 						<div class="h-48 w-60 bg-white rounded-md shadow-sm mr-2  shrink-0	">
-							<div style={`background-image: url(${meal.image});`} class="h-32 w-full rounded-t-md bg-cover" />
+							<div style={`background-image: url("${encodeURI(meal.image)}");`} class="h-32 w-full rounded-t-md bg-cover" />
 							<span class="m-2 font-bold ">{meal.name}</span>
 						</div>
 					{/each}

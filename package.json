@@ -29,6 +29,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@sveltejs/adapter-cloudflare": "^1.0.0-next.31"
+		"@sveltejs/adapter-cloudflare": "^1.0.0-next.31",
+		"fuse.js": "^6.6.2"
 	}
 }
