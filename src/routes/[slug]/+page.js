@@ -245,7 +245,6 @@ export async function load({ params }) {
 			referrerPolicy: 'strict-origin-when-cross-origin',
 			body: null,
 			method: 'POST',
-			mode: 'cors',
 			credentials: 'omit'
 		}
 	);
