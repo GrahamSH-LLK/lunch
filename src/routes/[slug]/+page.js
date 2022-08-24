@@ -403,7 +403,6 @@ export async function load({ params }) {
 		let meal = data.data.menuTypes[0].items[mealdex];
 
 		if (meal.product.is_ancillary) {
-			console.log('ancillary');
 			let newMeal = { name: meal.product.name, items: [] };
 			today.push(newMeal);
 		} else {
