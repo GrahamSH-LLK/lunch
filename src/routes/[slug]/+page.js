@@ -379,11 +379,18 @@ export async function load({ params }) {
 			image:
 				'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2013/10/8/0/fnk_baked-potato_s4x3.jpg.rend.hgtvcom.616.462.suffix/1383780369940.jpeg'
 		},
-    {
-      name: 'Rice',
-      alternateName: 'Mexi-Cali Rice',
-      image: 'https://www.seriouseats.com/thmb/quM8-Bh0abni-O0ikBpJn0KaH00=/1500x844/smart/filters:no_upscale()/easy-vegetable-fried-rice-recipe-hero-2-fed2a62b8bce4c51b945d9c24c2edb68.jpg'
-    }
+		{
+			name: 'Rice',
+			alternateName: 'Mexi-Cali Rice',
+			image:
+				'https://www.seriouseats.com/thmb/quM8-Bh0abni-O0ikBpJn0KaH00=/1500x844/smart/filters:no_upscale()/easy-vegetable-fried-rice-recipe-hero-2-fed2a62b8bce4c51b945d9c24c2edb68.jpg'
+		},
+		{
+			name: 'Carrots',
+			image:
+				'https://static.onecms.io/wp-content/uploads/sites/19/2017/04/04/GettyImages-121088095-2000.jpg'
+		},
+    {name: 'Dinner Roll', image: 'https://rebelsmuggling.com/storage/products/productImages/qz-zzzz-1233__1-300x300-resize.jpg'}
 	];
 	const options = {
 		includeScore: true,
