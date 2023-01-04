@@ -292,7 +292,7 @@ export async function load({ params }) {
 				'https://cdn.vox-cdn.com/thumbor/Nc8pN-5K37_EGya_Ac-BsY7NoZ8=/1400x1050/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/9064347/tater_tots_closeup.jpg'
 		},
 		{
-			name: 'Downtown Deli',
+			name: 'Made to Order Deli',
 			image:
 				'https://homemaderecipes.com/wp-content/uploads/2016/08/Two-Bacon-Burgers-on-Plates-deli-sandwiches-px-feature.jpg'
 		},
