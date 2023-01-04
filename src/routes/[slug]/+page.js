@@ -3,7 +3,8 @@ import Fuse from 'fuse.js';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
-  let date = (params.slug != 'today') ? params.slug : new Date().toLocaleString(undefined, {day: '2-digit', year: 'numeric', month: '2-digit'});
+  let normalURL = params.slug != 'today';
+  let date = (normalURL) ? params.slug : new Date().toLocaleString(undefined, {day: '2-digit', year: 'numeric', month: '2-digit'});
 	let query = `query mobileSchoolPage($date: String!, $site_code: String!, $site_code2: String!, $useDepth2: Boolean!) {
         menuTypes(publish_location: "mobile", site: {depth_0_id: $site_code, depth_1_id: $site_code2}) {
           id
@@ -412,5 +413,5 @@ export async function load({ params }) {
 			today[today.length - 1].items.push(meal.product);
 		}
 	}
-	return { today: today, date: new Date(date) };
+	return { today: today, date: new Date(date), todayDate: normalURL ? '' : new Date(date) };
 }

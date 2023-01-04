@@ -9,21 +9,26 @@
 	export let data;
 	$: today = data.today;
 	let date = data.date;
+	
 	$: {
-		if (browser)
+		console.log(data.todayDate, date)
+		console.log(data.todayDate != date)
+		if (browser && new Date(data.todayDate) != new Date(date)) {
+			console.log("meanie panini")
 			goto(
 				`/${encodeURIComponent(
 					date.toLocaleString(undefined, { day: '2-digit', year: 'numeric', month: '2-digit' })
 				)}`,
 				{ replaceState: true }
 			);
+			}
 	}
 </script>
 
 <div
 	class="flex w-full px-6 py-4 bg-blue-400 justify-between content-center  text-white"
 >
-	<span class=" font-bold text-3xl">🍽️ LHS Lunch</span> <DateInput bind:value={date} />
+	<span class=" font-bold text-3xl">🍽️ LHS Lunch</span> <a href="/today" class="font-bold text-3xl" target="_blank">Today</a> <DateInput bind:value={date} />
 </div>
 <div class="m-4 ml-8">
 	<ul>
