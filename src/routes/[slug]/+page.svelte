@@ -1,6 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/env';
+	import { MetaTags } from 'svelte-meta-tags';
 
 	import '../../app.css';
 	import { DateInput } from 'date-picker-svelte';
@@ -9,7 +10,16 @@
 	export let data;
 	$: today = data.today;
 	let date = data.date;
+	function relativeDate(date) {
+		const diff = date - new Date();
+		const days = Math.ceil(diff / 1000 / 60 / 60 / 24);
 
+		const formatter = new Intl.RelativeTimeFormat('en-US', {
+			numeric: 'auto'
+		});
+
+		return formatter.format(days, 'day'); // 85.979 hours ago
+	}
 	$: {
 		if (browser && new Date(data.todayDate) != new Date(date)) {
 			goto(
@@ -22,6 +32,22 @@
 	}
 </script>
 
+<MetaTags
+	openGraph={{
+		url: 'https://www.url.ie/a',
+		title: today[0]?.items[0].name || '',
+		description: `The main lunch at LHS ${relativeDate(date)}`,
+		images: [
+			{
+				url: today[0]?.items[0].image ?? '',
+				width: 800,
+				height: 600,
+				alt: `Stock picture of ${today[0]?.items[0].name}`
+			}
+		],
+		site_name: 'LHS Lunch'
+	}}
+/>
 <div class="flex w-full px-6 py-4 bg-blue-400 justify-between content-center  text-white">
 	<span class=" font-bold text-3xl">🍽️ LHS Lunch</span>
 	<a href="/today" class="font-bold text-3xl" target="_blank">📌 Today</a>
