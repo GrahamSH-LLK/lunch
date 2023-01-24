@@ -413,5 +413,5 @@ export async function load({ params }) {
 			today[today.length - 1].items.push(meal.product);
 		}
 	}
-	return { today: today, date: new Date(date), todayDate: normalURL ? '' : new Date(date) };
+	return { today: today, date: new Date(date), todayDate: normalURL ? null : new Date(date) };
 }

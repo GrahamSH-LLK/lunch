@@ -13,15 +13,17 @@
 	function relativeDate(date) {
 		const diff = date - new Date();
 		const days = Math.ceil(diff / 1000 / 60 / 60 / 24);
-
 		const formatter = new Intl.RelativeTimeFormat('en-US', {
 			numeric: 'auto'
 		});
-
-		return formatter.format(days, 'day'); // 85.979 hours ago
+try {
+		return formatter.format(days, 'day');
+		} catch {
+			return '';
+		}
 	}
 	$: {
-		if (browser && new Date(data.todayDate) != new Date(date)) {
+		if (browser &&  (data.todayDate?.getTime() != date.getTime() ) ) {
 			goto(
 				`/${encodeURIComponent(
 					date.toLocaleString(undefined, { day: '2-digit', year: 'numeric', month: '2-digit' })
