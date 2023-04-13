@@ -58,6 +58,7 @@ export async function load({ params }) {
               mealsPlusCustomAttributes
               long_description
               hide_on_mobile
+              product_fullname
             }
           }
         }
@@ -68,6 +69,7 @@ export async function load({ params }) {
             product {
               id
               name
+              product_fullname
               allergen_dairy
               allergen_egg
               allergen_fish
@@ -154,13 +156,7 @@ export async function load({ params }) {
               allergenFilterEnabled
               ratingEmojiShow
             }
-            SnafDistrict {
-              url_online_pay
-            }
-            SnafSettings {
-              enable_surveys
-              enable_announcements
-            }
+
             OnlineOrderingSettings {
               enableSlc
               enableTlc
@@ -171,59 +167,7 @@ export async function load({ params }) {
               }
             }
           }
-        }
-        site2: site(depth: 1, id: $site_code2) @include(if: $useDepth2) {
-          id
-          parent_id
-          name
-          logo_url
-          organization {
-            id
-            name
-            logo_url
-            OnlineMenuDesignSettings {
-              customAllergens {
-                field
-                img
-                label
-                tooltip
-              }
-              mealsPlusCustomAllergens {
-                field
-                img
-                label
-                tooltip
-                mealsPlusId
-              }
-              mealsPlusCustomAttributes {
-                field
-                img
-                label
-                tooltip
-                mealsPlusId
-              }
-              disableAllergen
-              showAllergens
-              allergenFilterEnabled
-              ratingEmojiShow
-            }
-            SnafDistrict {
-              url_online_pay
-            }
-            SnafSettings {
-              enable_surveys
-              enable_announcements
-            }
-            OnlineOrderingSettings {
-              enableSlc
-              enableTlc
-            }
-            apps {
-              onlineordering {
-                enable_linq
-              }
-            }
-          }
+        
         }
       }
       `;

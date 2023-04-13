@@ -30,6 +30,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@svelte-plugins/tooltips": "^0.1.6",
 		"@sveltejs/adapter-cloudflare": "^1.0.0-next.31",
 		"fuse.js": "^6.6.2"
 	}
