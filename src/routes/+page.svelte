@@ -5,6 +5,6 @@
 
 <Nav emoji={'🏫'} pagename="School Tools" />
 <div class="text-2xl m-4 ml-8">
-    <div><a href="/lunch">Lunch</a></div>
+    <div><a href="/lunch/today">Lunch</a></div>
     <div><a href="/dates"> Dates</a></div>
 </div>

@@ -7,6 +7,7 @@ export async function load({ params, fetch }) {
 	let date = normalURL
 		? params.slug
 		: new Date().toLocaleString(undefined, { day: '2-digit', year: 'numeric', month: '2-digit' });
+
 	let query = `query mobileSchoolPage(
 		$date: String!
 		$site_code: String!
@@ -69,11 +70,26 @@ export async function load({ params, fetch }) {
 			  hide_on_mobile
 			  product_fullname
 			  providerProductID
+			  rating_average
+			  rating_count
+			  ingredients
 			}
 		  }
 		}
 	  }	  
       `;
+	  /*query = `{
+		__type(name: "MenuItemProduct") {
+		  name
+		  fields {
+			name
+			type {
+			  name
+			  kind
+			}
+		  }
+		}
+	  }`;*/
 	let variables = `{"date":"${date}","site_code":"19767","site_code2":"65146"}`;
 	let res = await fetch(
 		`https://api.isitesoftware.com/graphql?query=${encodeURIComponent(
@@ -95,7 +111,7 @@ export async function load({ params, fetch }) {
 		}
 	);
 	let data = await res.json();
-	console.log(data);
+	//console.log(data.data["__type"].fields);
 	let today = [];
 	let images = [
 		{

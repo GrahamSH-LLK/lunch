@@ -5,7 +5,21 @@
 	import { Tooltip } from '@svelte-plugins/tooltips';
 	import Nav from '$lib/Nav.svelte';
 	import Modal from '$lib/Modal.svelte';
-
+	import StarRating from '@ernane/svelte-star-rating';
+	let config = {
+		readOnly: false,
+		countStars: 5,
+		range: { min: 0, max: 5, step: 1 },
+		score: 0,
+		showScore: true,
+		starConfig: {
+			size: 30,
+			fillColor: '#F9ED4F',
+			strokeColor: '#BB8511',
+			unfilledColor: '#FFFFF',
+			strokeUnfilledColor: '#00000'
+		}
+	};
 	import '$src/app.css';
 	import { DateInput } from 'date-picker-svelte';
 
@@ -52,6 +66,26 @@
 		'vegetarian',
 		'wheat'
 	];
+	const changeSliderInput = async () => {
+		if (!localStorage.uuid) {
+			localStorage.setItem('uuid', crypto.randomUUID());
+		}
+		let res = await fetch('/lunch/rate', {
+			method: 'POST',
+			body: JSON.stringify({
+				uuid: localStorage.uuid,
+				product_id: modalMeal.id,
+				rating: config.score
+			})
+		});
+		//modalMeal["rating_avg_new"] = (modalMeal["rating_average"] * modalMeal["rating_count"]) + config.score / (modalMeal["rating_count"] + 1)
+		console.log(config.score);
+	};
+	const openModal = (meal) => {
+		showModal = true;
+		modalMeal = meal;
+		config.score = 0;
+	}
 </script>
 
 <MetaTags
@@ -84,6 +118,10 @@
 				{modalMeal.name}
 			</p>
 		</div>
+<div class="flex justify-between pt-2">
+		<span class="font-bold">{modalMeal['rating_average'] ? `${modalMeal['rating_average']} stars  (${modalMeal["rating_count"]} ratings)`: 'No ratings yet'} </span>
+		<StarRating bind:config on:change={changeSliderInput} />
+	</div>
 		<div class="flex">
 			<div class="font-bold">
 				<div class="h-10">Allergens</div>
@@ -121,7 +159,7 @@
 						{#each category.items as meal}
 							<div
 								class="h-48 w-60 bg-white rounded-md shadow-sm mr-2  shrink-0	"
-								on:click={() => (showModal = true) && (modalMeal = meal)}
+								on:click={openModal(meal)}
 							>
 								<div
 									style={`background-image: url("${encodeURI(meal.image)}");`}
