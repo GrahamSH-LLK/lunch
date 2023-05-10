@@ -85,7 +85,7 @@
 		showModal = true;
 		modalMeal = meal;
 		config.score = 0;
-	}
+	};
 </script>
 
 <MetaTags
@@ -111,21 +111,30 @@
 <Modal bind:showModal class="">
 	{#if modalMeal}
 		<div
-			style={`background-image: url("${encodeURI(modalMeal.image)}");`}
-			class="h-48 w-full rounded-t-md bg-cover bg-center relative"
+			style={`background-image: linear-gradient(
+				to bottom,
+				rgba(0, 0, 0, 0),
+				rgba(0, 0, 0, 0.6)
+			  ), url("${encodeURI(modalMeal.image)}");`}
+			class="h-48 w-full rounded-md bg-cover bg-center relative"
 		>
-			<p class="absolute bottom-1 left-1 text-2xl mix-blend-exclusion		text-white">
-				{modalMeal.name}
-			</p>
+				<p class="absolute bottom-1 left-1 text-2xl text-white 	">
+					{modalMeal.name}
+				</p>
+			
 		</div>
-<div class="flex justify-between pt-2">
-		<span class="font-bold">{modalMeal['rating_average'] ? `${modalMeal['rating_average']} stars  (${modalMeal["rating_count"]} ratings)`: 'No ratings yet'} </span>
-		<StarRating bind:config on:change={changeSliderInput} />
-	</div>
+		<div class="flex justify-between pt-2">
+			<span class="font-bold"
+				>{modalMeal['rating_average']
+					? `${modalMeal['rating_average']} stars  (${modalMeal['rating_count']} ratings)`
+					: 'No ratings yet'}
+			</span>
+			<StarRating bind:config on:change={changeSliderInput} />
+		</div>
 		<div class="flex">
 			<div class="font-bold">
 				<div class="h-10">Allergens</div>
-				<div class="h-10">Serving Size</div>
+				<div class="h-10">Provider item code</div>
 			</div>
 			<div class="px-5">
 				<div class="flex h-10">
@@ -138,11 +147,67 @@
 					{/each}
 				</div>
 
-				{modalMeal['portion_size']}
-				{modalMeal['portion_size_unit']}
 				{modalMeal['providerProductID']}
 			</div>
 		</div>
+		<table class="w-64 p-4 border-2 border-black border-spacing-4">
+			<thead class="border-b border-b-black px-2">
+				<tr>
+					<th class="font-black text-2xl" colspan="2">Nutrition Facts</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td class="px-1">
+						{modalMeal['portion_size']}
+						{modalMeal['portion_size_unit']}
+					</td>
+				</tr>
+				<tr>
+					<td class="px-1"> Serving size: {Math.floor(modalMeal['prod_gram_weight'])}g</td>
+				</tr>
+				<tr class="bg-black h-2 px-1">
+					<td />
+				</tr>
+				<tr
+					><p class="font-bold px-1">Amount Per Serving</p>
+					<p class="text-3xl font-extrabold px-1">Calories {modalMeal['prod_calories']}</p>
+				</tr>
+				<tr class="bg-black h-1 px-1">
+					<td />
+				</tr>
+				<tr>
+					<p class="px-1">
+						<span class="font-bold">Total Fat</span>
+						{modalMeal['prod_total_fat']}g
+					</p>
+					<p class="px-6">
+						Saturated Fat {modalMeal['prod_sat_fat']}g
+					</p>
+					<p class="px-6">
+						<span class="italic">Trans</span> Fat {modalMeal['prod_trans_fat']}g
+					</p>
+					<p class="px-1">
+						<span class="font-bold">Cholesterol</span>
+						{modalMeal['prod_cholesterol']}g
+					</p>
+					<p class="px-1"><span class="font-bold">Sodium</span> {modalMeal['prod_sodium']}g</p>
+
+					<p class="px-1">
+						<span class="font-bold">Total Carbohydrate</span>
+						{modalMeal['prod_carbs']}g
+					</p>
+					<p class="px-6">
+						Dietary Fiber {modalMeal['prod_dietary_fiber']}g
+					</p>
+					<p class="px-6">
+						Sugar {modalMeal['sugar']}g
+					</p>
+					<p class="px-1"><span class="font-black">Protein</span> {modalMeal['prod_protein']}</p>
+				</tr>
+			</tbody>
+		</table>
 	{/if}
 </Modal>
 
@@ -174,3 +239,9 @@
 		</ul>
 	{/if}
 </div>
+
+<style>
+	table {
+		font-family: Helvetica;
+	}
+</style>
