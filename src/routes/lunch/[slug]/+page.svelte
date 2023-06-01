@@ -1,6 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 	import { MetaTags } from 'svelte-meta-tags';
 	import { Tooltip } from '@svelte-plugins/tooltips';
 	import Nav from '$lib/Nav.svelte';
