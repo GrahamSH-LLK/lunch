@@ -70,8 +70,9 @@
 		if (!localStorage.uuid) {
 			localStorage.setItem('uuid', crypto.randomUUID());
 		}
-		let res = await fetch('/lunch/rate', {
+		let res = await fetch('/api/rate', {
 			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({
 				uuid: localStorage.uuid,
 				product_id: modalMeal.id,

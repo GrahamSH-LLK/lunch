@@ -5,7 +5,7 @@ import path from 'path';
 const config = {
 	plugins: [sveltekit()],
 	optimizeDeps: {
-		include: ['locale']
+		include: []
 	},
 	resolve: {
 		alias: {
