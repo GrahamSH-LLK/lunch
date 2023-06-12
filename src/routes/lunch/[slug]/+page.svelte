@@ -88,7 +88,7 @@
 		config.score = 0;
 	};
 </script>
-
+{#if today[0].items.length}
 <MetaTags
 	openGraph={{
 		url: 'https://www.url.ie/a',
@@ -99,12 +99,13 @@
 				url: today[0]?.items[0].image ?? '',
 				width: 800,
 				height: 600,
-				alt: `Stock picture of ${today[0]?.items[0].name}`
+				alt: `Stock picture of ${today[0]?.items[0]?.name}`
 			}
 		],
 		site_name: 'LHS Lunch'
 	}}
 />
+{/if}
 <Nav emoji={'🍽️'} pagename="Lunch">
 	<a href="/lunch/today" class="font-bold text-3xl" target="_blank">📌 Today</a>
 	<DateInput bind:value={date} />
