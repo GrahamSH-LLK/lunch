@@ -99,7 +99,7 @@
 				url: today[0]?.items[0].image ?? '',
 				width: 800,
 				height: 600,
-				alt: `Stock picture of ${today[0]?.items[0]?.name}`
+				alt: `Stock picture of ${today[0]?.items[0]?.name ?? ''}`
 			}
 		],
 		site_name: 'LHS Lunch'
