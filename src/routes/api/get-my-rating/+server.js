@@ -1,11 +1,10 @@
 /** @type {import('./$types').RequestHandler} */
 export async function POST({request}) {
 	
-	console.log('no');
-	const {product_id, uuid,rating} = await request.json();
+	const {product_id, uuid} = await request.json();
 
 	let res = await fetch(
-		'https://www.schoolnutritionandfitness.com/webmenus2/api/productController.php/rate',
+		'https://www.schoolnutritionandfitness.com/webmenus2/api/productController.php/get-my-rating',
 		{
 			headers: {
 				
@@ -15,7 +14,7 @@ export async function POST({request}) {
 			},
 			//referrer: 'https://www.schoolnutritionandfitness.com/webmenus2/',
 			//referrerPolicy: 'strict-origin-when-cross-origin',
-			body: `{"sid":"1624626026767","product_id":"${product_id}","rate":${rating},"profile_uuid":"${uuid}"}`,
+			body: `{"sid":"1624626026767","product_id":"${product_id}","profile_uuid":"${uuid}"}`,
 			method: 'POST',
 			//credentials: 'include'
 		}

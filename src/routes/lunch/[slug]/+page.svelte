@@ -22,7 +22,25 @@
 	};
 	import '$src/app.css';
 	import { DateInput } from 'date-picker-svelte';
+	const getMyRating = async (product_id) => {
+		if (!localStorage.uuid) {
+			localStorage.setItem('uuid', crypto.randomUUID());
+		}
 
+		const res = await fetch('/api/get-my-rating', {
+			headers: { 'Content-Type': 'application/json' },
+
+			body: JSON.stringify({
+				product_id,
+				uuid: localStorage.uuid
+			}),
+			method: 'POST'
+		});
+		let data = await res.json();
+
+		if (!data.rate) return 0;
+		return data.rate;
+	};
 	/** @type {import('./$types').PageData} */
 	export let data;
 	$: today = data.today;
@@ -72,44 +90,44 @@
 		}
 		let res = await fetch('/api/rate', {
 			method: 'POST',
-			headers: {'Content-Type': 'application/json'},
+			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
 				uuid: localStorage.uuid,
 				product_id: modalMeal.id,
 				rating: config.score
 			})
 		});
-		//modalMeal["rating_avg_new"] = (modalMeal["rating_average"] * modalMeal["rating_count"]) + config.score / (modalMeal["rating_count"] + 1)
-		console.log(config.score);
 	};
-	const openModal = (meal) => {
+	const openModal = async (meal) => {
 		showModal = true;
 		modalMeal = meal;
-		config.score = 0;
+		config.score = await getMyRating(meal.id);
 	};
 </script>
+
 {#if today[0].items.length}
-<MetaTags
-	openGraph={{
-		url: 'https://www.url.ie/a',
-		title: today[0]?.items[0].name || '',
-		description: `The main lunch at LHS ${relativeDate(date)}`,
-		images: [
-			{
-				url: today[0]?.items[0].image ?? '',
-				width: 800,
-				height: 600,
-				alt: `Stock picture of ${today[0]?.items[0]?.name ?? ''}`
-			}
-		],
-		site_name: 'LHS Lunch'
-	}}
-/>
+	<MetaTags
+		openGraph={{
+			url: 'https://www.url.ie/a',
+			title: today[0]?.items[0].name || '',
+			description: `The main lunch at LHS ${relativeDate(date)}`,
+			images: [
+				{
+					url: today[0]?.items[0].image ?? '',
+					width: 800,
+					height: 600,
+					alt: `Stock picture of ${today[0]?.items[0]?.name ?? ''}`
+				}
+			],
+			site_name: 'LHS Lunch'
+		}}
+	/>
 {/if}
 <Nav emoji={'🍽️'} pagename="Lunch">
 	<a href="/lunch/today" class="font-bold text-3xl" target="_blank">📌 Today</a>
 	<DateInput bind:value={date} />
 </Nav>
+
 <Modal bind:showModal class="">
 	{#if modalMeal}
 		<div
@@ -120,10 +138,9 @@
 			  ), url("${encodeURI(modalMeal.image)}");`}
 			class="h-48 w-full rounded-md bg-cover bg-center relative"
 		>
-				<p class="absolute bottom-1 left-1 text-2xl text-white 	">
-					{modalMeal.name}
-				</p>
-			
+			<p class="absolute bottom-1 left-1 text-2xl text-white">
+				{modalMeal.name}
+			</p>
 		</div>
 		<div class="flex justify-between pt-2">
 			<span class="font-bold"
@@ -215,7 +232,7 @@
 
 <div class="m-4 ml-8">
 	{#if date.getDay() == 0 || date.getDay() == 6}
-		<h2 class="text-2xl">Didn't realize you liked school lunch that much</h2>
+		<h2 class="text-2xl">Sorry, no lunch todday!</h2>
 		<p>It's a weekend!</p>
 	{:else}
 		<ul>
@@ -225,14 +242,14 @@
 					<div class="flex overflow-scroll w-full">
 						{#each category.items as meal}
 							<div
-								class="h-48 w-60 bg-white rounded-md shadow-sm mr-2  shrink-0	"
+								class="h-48 w-60 bg-white rounded-md shadow-sm mr-2 shrink-0"
 								on:click={openModal(meal)}
 							>
 								<div
 									style={`background-image: url("${encodeURI(meal.image)}");`}
 									class="h-32 w-full rounded-t-md bg-cover"
 								/>
-								<span class="m-2 font-bold ">{meal.name} </span>
+								<span class="m-2 font-bold">{meal.name} </span>
 							</div>
 						{/each}
 					</div>

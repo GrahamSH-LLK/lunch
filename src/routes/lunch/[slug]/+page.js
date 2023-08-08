@@ -266,7 +266,6 @@ export async function load({ params, fetch }) {
 		includeScore: true,
 		keys: ['name', 'alternateName']
 	};
-
 	const fuse = new Fuse(images, options);
 
 	for (let mealdex in data.data.menuTypes[0].items) {
@@ -281,5 +280,6 @@ export async function load({ params, fetch }) {
 			today[today.length - 1].items.push(meal.product);
 		}
 	}
+
 	return { today: today, date: new Date(date), todayDate: normalURL ? null : new Date(date) };
 }
