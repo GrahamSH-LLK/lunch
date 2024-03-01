@@ -78,7 +78,7 @@ export async function load({ params, fetch }) {
 		}
 	  }	  
       `;
-	  /*query = `{
+	/*query = `{
 		__type(name: "MenuItemProduct") {
 		  name
 		  fields {
@@ -166,8 +166,7 @@ export async function load({ params, fetch }) {
 		},
 		{
 			name: 'Assorted Fruit',
-			image:
-				'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimg1.cookinglight.timeinc.net%2Fsites%2Fdefault%2Ffiles%2Fstyles%2F4_3_horizontal_-_1200x900%2Fpublic%2F1502826406%2F1708w-getty-fruit-closeup-CarstenSchanter-EyeEm.jpg%3Fitok%3DXFE9vQPZ'
+			image: 'https://cdn10.bostonmagazine.com/wp-content/uploads/2014/08/lunch.jpg'
 		},
 		{
 			name: 'Assorted Condiments',
@@ -260,7 +259,42 @@ export async function load({ params, fetch }) {
 			image:
 				'https://rebelsmuggling.com/storage/products/productImages/qz-zzzz-1233__1-300x300-resize.jpg'
 		},
-		{ name: 'Waffle & Sausage', image: 'https://i.ytimg.com/vi/dHLOv0jUa58/maxresdefault.jpg', alternateName: "Chicken & Waffles" },
+		{
+			name: 'Waffle & Sausage',
+			image: 'https://i.ytimg.com/vi/dHLOv0jUa58/maxresdefault.jpg',
+			alternateName: 'Chicken & Waffles'
+		},
+		{
+			name: 'Build Your Own Nachos',
+			image:
+				'https://hallrecord.org/wp-content/uploads/2018/10/Flickr_jennerosity_3399911471-Nachos-900x675.jpg'
+		},
+		{
+			name: 'Corn Dog',
+			image:
+				'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9RLwDauoQAPaapGkm4HAJsF_4V2VF5PHquyI1WUHkkA&s'
+		},
+		{
+			name: 'BBQ Pulled Pork',
+			image:
+				'https://www.beyondthechickencoop.com/wp-content/uploads/2021/09/Crockpot-BBQ-Pulled-Pork-5.jpg'
+		},
+		{
+			name: 'Cole Slaw',
+			image:
+				'https://www.superhealthykids.com/wp-content/uploads/2013/04/healthy-cole-slaw-07-640-square.jpg'
+		},
+		{
+			name: 'Quesadilla',
+			image:
+				'https://i0.wp.com/www.sonshinekitchen.com/wp-content/uploads/2019/02/chicken-cheese-quesadillas-featured.jpg?fit=1024%2C768&ssl=1',
+			alternateName: 'Chicken Quesadilla'
+		},
+		{
+			name: 'Hot Dog',
+			image:
+				'https://d2u4q3iydaupsp.cloudfront.net/Rld89tubrDzEu4QflFXg6kRkSOPvwNMx2ymDQb7WhqAtO6PB7n5RkDhoOXG49YCNs3QK6VHwv8iUmIFhQXDc2GCEJfvAl6JNsqqsY9IHnHsVxderI1rOgWwiee3vQv0H'
+		}
 	];
 	const options = {
 		includeScore: true,
