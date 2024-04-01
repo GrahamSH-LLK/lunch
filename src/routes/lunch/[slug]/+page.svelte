@@ -109,7 +109,7 @@
 	<MetaTags
 		openGraph={{
 			url: 'https://www.url.ie/a',
-			title: today[0]?.items[0].name || '',
+			title: today[0]?.items[0].componentEnglishName || '',
 			description: `The main lunch at LHS ${relativeDate(date)}`,
 			images: [
 				{
@@ -139,21 +139,26 @@
 			class="h-48 w-full rounded-md bg-cover bg-center relative"
 		>
 			<p class="absolute bottom-1 left-1 text-2xl text-white">
-				{modalMeal.name}
+				{modalMeal.componentEnglishName}
 			</p>
 		</div>
 		<div class="flex justify-between pt-2">
-			<span class="font-bold"
-				>{modalMeal['rating_average']
-					? `${modalMeal['rating_average']} stars  (${modalMeal['rating_count']} ratings)`
-					: 'No ratings yet'}
-			</span>
-			<StarRating bind:config on:change={changeSliderInput} />
+			<span class="font-bold">ratings temporarily disabled while i figure out the new api 🫡</span>
+			<span class="italic">it's probably a 3.5</span>
+
+			{#if false}
+				<span class="font-bold"
+					>{modalMeal['ratings']
+						? `${modalMeal['rating']} stars  (${modalMeal['ratings']} ratings)`
+						: 'No ratings yet'}
+				</span>
+				<StarRating bind:config on:change={changeSliderInput} />
+			{/if}
 		</div>
 		<div class="flex">
 			<div class="font-bold">
-				<div class="h-10">Allergens</div>
-				<div class="h-10">Provider item code</div>
+				<div class="h-10">Allergens (coming soon)</div>
+				<div class="h-10">Full Name</div>
 			</div>
 			<div class="px-5">
 				<div class="flex h-10">
@@ -166,7 +171,7 @@
 					{/each}
 				</div>
 
-				{modalMeal['providerProductID']}
+				{modalMeal['componentName']}
 			</div>
 		</div>
 		<table class="w-64 p-4 border-2 border-black border-spacing-4">
@@ -177,21 +182,12 @@
 			</thead>
 
 			<tbody>
-				<tr>
-					<td class="px-1">
-						{modalMeal['portion_size']}
-						{modalMeal['portion_size_unit']}
-					</td>
-				</tr>
-				<tr>
-					<td class="px-1"> Serving size: {Math.floor(modalMeal['prod_gram_weight'])}g</td>
-				</tr>
 				<tr class="bg-black h-2 px-1">
 					<td />
 				</tr>
 				<tr
 					><p class="font-bold px-1">Amount Per Serving</p>
-					<p class="text-3xl font-extrabold px-1">Calories {modalMeal['prod_calories']}</p>
+					<p class="text-3xl font-extrabold px-1">Calories {modalMeal['calories']}</p>
 				</tr>
 				<tr class="bg-black h-1 px-1">
 					<td />
@@ -199,31 +195,31 @@
 				<tr>
 					<p class="px-1">
 						<span class="font-bold">Total Fat</span>
-						{modalMeal['prod_total_fat']}g
+						{modalMeal['fat']}g
 					</p>
 					<p class="px-6">
-						Saturated Fat {modalMeal['prod_sat_fat']}g
+						Saturated Fat {modalMeal['saturatedFat']}g
 					</p>
 					<p class="px-6">
-						<span class="italic">Trans</span> Fat {modalMeal['prod_trans_fat']}g
+						<span class="italic">Trans</span> Fat {modalMeal['transFattyAcid']}g
 					</p>
 					<p class="px-1">
 						<span class="font-bold">Cholesterol</span>
-						{modalMeal['prod_cholesterol']}g
+						{modalMeal['cholesterol']}g
 					</p>
-					<p class="px-1"><span class="font-bold">Sodium</span> {modalMeal['prod_sodium']}g</p>
+					<p class="px-1"><span class="font-bold">Sodium</span> {modalMeal['sodium']}g</p>
 
 					<p class="px-1">
 						<span class="font-bold">Total Carbohydrate</span>
-						{modalMeal['prod_carbs']}g
+						{modalMeal['carbohydrates']}g
 					</p>
 					<p class="px-6">
-						Dietary Fiber {modalMeal['prod_dietary_fiber']}g
+						Dietary Fiber {modalMeal['dietaryFiber']}g
 					</p>
 					<p class="px-6">
-						Sugar {modalMeal['sugar']}g
+						Sugar {modalMeal['totalSugars']}g
 					</p>
-					<p class="px-1"><span class="font-black">Protein</span> {modalMeal['prod_protein']}</p>
+					<p class="px-1"><span class="font-black">Protein</span> {modalMeal['protein']}g</p>
 				</tr>
 			</tbody>
 		</table>
@@ -232,7 +228,7 @@
 
 <div class="m-4 ml-8">
 	{#if date.getDay() == 0 || date.getDay() == 6}
-		<h2 class="text-2xl">Sorry, no lunch todday!</h2>
+		<h2 class="text-2xl">Sorry, no lunch today!</h2>
 		<p>It's a weekend!</p>
 	{:else}
 		<ul>
@@ -241,16 +237,18 @@
 					<h2 class="font-semibold text-2xl my-1">{category.name}</h2>
 					<div class="flex overflow-scroll w-full">
 						{#each category.items as meal}
-							<div
-								class="h-48 w-60 bg-white rounded-md shadow-sm mr-2 shrink-0"
-								on:click={openModal(meal)}
-							>
+							<Tooltip content={meal.componentEnglishDescription}>
 								<div
-									style={`background-image: url("${encodeURI(meal.image)}");`}
-									class="h-32 w-full rounded-t-md bg-cover"
-								/>
-								<span class="m-2 font-bold">{meal.name} </span>
-							</div>
+									class="h-48 w-72 bg-white rounded-md shadow-sm mr-2 shrink-0"
+									on:click={openModal(meal)}
+								>
+									<div
+										style={`background-image: url("${encodeURI(meal.image)}");`}
+										class="h-32 w-full rounded-t-md bg-cover"
+									/>
+									<span class="m-2 font-bold">{meal.componentEnglishName} </span>
+								</div>
+							</Tooltip>
 						{/each}
 					</div>
 				</li>

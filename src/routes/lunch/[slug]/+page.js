@@ -8,93 +8,8 @@ export async function load({ params, fetch }) {
 		? params.slug
 		: new Date().toLocaleString(undefined, { day: '2-digit', year: 'numeric', month: '2-digit' });
 
-	let query = `query mobileSchoolPage(
-		$date: String!
-		$site_code: String!
-		$site_code2: String!
-	  ) {
-		menuTypes(
-		  publish_location: "mobile"
-		  site: { depth_0_id: $site_code, depth_1_id: $site_code2 }
-		) {
-		  id
-		  name
-		  formats
-		  items(start_date: $date, end_date: $date) {
-			date
-			product {
-			  id
-			  name
-			  allergen_dairy
-			  allergen_egg
-			  allergen_fish
-			  allergen_gluten
-			  allergen_milk
-			  allergen_peanut
-			  allergen_pork
-			  allergen_shellfish
-			  allergen_soy
-			  allergen_treenuts
-			  allergen_vegetarian
-			  allergen_wheat
-			  allergen_other
-			  customAllergens
-			  image_url1
-			  image_url2
-			  pdf_url
-			  portion_size
-			  portion_size_unit
-			  price
-			  prod_allergens
-			  prod_calcium
-			  prod_calories
-			  prod_carbs
-			  prod_cholesterol
-			  prod_dietary_fiber
-			  prod_gram_weight
-			  prod_iron
-			  prod_mfg
-			  prod_protein
-			  prod_sat_fat
-			  prod_sodium
-			  prod_total_fat
-			  prod_trans_fat
-			  prod_vita_iu
-			  prod_vita_re
-			  prod_vitc
-			  sugar
-			  is_ancillary
-			  mealsPlusCustomAllergens
-			  mealsPlusCustomAttributes
-			  long_description
-			  hide_on_mobile
-			  product_fullname
-			  providerProductID
-			  rating_average
-			  rating_count
-			  ingredients
-			}
-		  }
-		}
-	  }	  
-      `;
-	/*query = `{
-		__type(name: "MenuItemProduct") {
-		  name
-		  fields {
-			name
-			type {
-			  name
-			  kind
-			}
-		  }
-		}
-	  }`;*/
-	let variables = `{"date":"${date}","site_code":"19767","site_code2":"65146"}`;
 	let res = await fetch(
-		`https://api.isitesoftware.com/graphql?query=${encodeURIComponent(
-			query
-		)}&variables=${encodeURIComponent(variables)}`,
+		`https://apiservicelocators.fdmealplanner.com/api/v1/data-locator-webapi/3/meals?accountId=78&endDate=${date}&isActive=true&isStandalone&locationId=430&mealPeriodId=2&menuId=0&monthId=4&selectedDate=${date}&startDate=${date}&tenantId=3&timeOffset=0&year=2024`,
 		{
 			headers: {
 				accept: 'application/json, text/plain, */*',
@@ -107,7 +22,7 @@ export async function load({ params, fetch }) {
 				'sec-fetch-site': 'cross-site'
 			},
 			body: null,
-			method: 'POST'
+			method: 'GET'
 		}
 	);
 	let data = await res.json();
@@ -301,7 +216,7 @@ export async function load({ params, fetch }) {
 		keys: ['name', 'alternateName']
 	};
 	const fuse = new Fuse(images, options);
-
+	/*
 	for (let mealdex in data.data.menuTypes[0].items) {
 		let meal = data.data.menuTypes[0].items[mealdex];
 
@@ -313,7 +228,31 @@ export async function load({ params, fetch }) {
 			meal.product.image = result;
 			today[today.length - 1].items.push(meal.product);
 		}
-	}
+	}*/
 
+	for (let meal of data.result[0].menuRecipiesData) {
+		if (
+			!today.some((x) => {
+				return x.id == meal.rowId;
+			})
+		) {
+			let concept = data.result[0].conceptData.find((x) => {
+				return x.rowId == meal.rowId && x.weekId == meal.weekId;
+			});
+			let newCategory = { name: concept.conceptName, id: meal.rowId, items: [] };
+			today.push(newCategory);
+		}
+		let category = today.find((x) => {
+			console.log(x);
+			return x.id == meal.rowId;
+		});
+		let result = fuse.search(meal.componentEnglishName)[0]?.item.image;
+		meal.image = result;
+		category.items.push(meal);
+		console.log(meal.componentName);
+	}
+	today = today.sort((a,b) => {
+		return a.id > b.id ? 1 : -1;
+	})
 	return { today: today, date: new Date(date), todayDate: normalURL ? null : new Date(date) };
 }
