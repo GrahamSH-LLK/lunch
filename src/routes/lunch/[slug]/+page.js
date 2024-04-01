@@ -42,6 +42,7 @@ export async function load({ params, fetch }) {
 		},
 		{
 			name: 'Cheeseburger on Bun',
+			alternateName: 'Double Bacon Burger',
 			image:
 				'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cheeseburger.jpg/1200px-Cheeseburger.jpg'
 		},
@@ -123,6 +124,11 @@ export async function load({ params, fetch }) {
 				'https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-HASH-BROWNS-1:1-3-product-tile-desktop?wid=829&hei=515&dpr=off'
 		},
 		{
+			name: 'Steamed Broccoli',
+			image:
+				'https://assets.epicurious.com/photos/5761cfc58accf290434553a9/master/pass/steamed-broccoli-with-olive-oil-garlic-and-lemon.jpg'
+		},
+		{
 			name: 'Garden Salad',
 			image:
 				'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-beet-salad-jpg-1526059794.jpg'
@@ -145,7 +151,7 @@ export async function load({ params, fetch }) {
 			image: 'https://www.onceuponachef.com/images/2022/03/balsamic-vinaigrette-1200x817.jpg'
 		},
 		{
-			name: 'Milk',
+			name: 'Low Fat Milk',
 			image: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/296/296564/milk.jpg'
 		},
 		{
@@ -159,7 +165,7 @@ export async function load({ params, fetch }) {
 				'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2013/10/8/0/fnk_baked-potato_s4x3.jpg.rend.hgtvcom.616.462.suffix/1383780369940.jpeg'
 		},
 		{
-			name: 'Rice',
+			name: 'Spanish Style Rice',
 			alternateName: 'Mexi-Cali Rice',
 			image:
 				'https://www.seriouseats.com/thmb/quM8-Bh0abni-O0ikBpJn0KaH00=/1500x844/smart/filters:no_upscale()/easy-vegetable-fried-rice-recipe-hero-2-fed2a62b8bce4c51b945d9c24c2edb68.jpg'
@@ -209,7 +215,66 @@ export async function load({ params, fetch }) {
 			name: 'Hot Dog',
 			image:
 				'https://d2u4q3iydaupsp.cloudfront.net/Rld89tubrDzEu4QflFXg6kRkSOPvwNMx2ymDQb7WhqAtO6PB7n5RkDhoOXG49YCNs3QK6VHwv8iUmIFhQXDc2GCEJfvAl6JNsqqsY9IHnHsVxderI1rOgWwiee3vQv0H'
-		}
+		},
+		{
+			name: 'Alfredo Sauce',
+			image:
+				'https://valentinascorner.com/wp-content/uploads/2020/07/Alfredo-Sauce-Recipe-5-of-5.jpg'
+		},
+		{
+			name: 'Tomato Sauce',
+			image:
+				'https://www.allrecipes.com/thmb/4X86LzlzRXty6zbIzo2zDZZ6Ugc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/11966-best-marinara-sauce-yet-DDMFS-4x3-078e494b66c4485e8efe0971473b3196.jpg'
+		},
+		{
+			name: 'Bolognese Sauce',
+			image: 'https://www.budgetbytes.com/wp-content/uploads/2023/04/Bologneseoverhead.jpg'
+		},
+		{
+			name: 'Tortilla Chips',
+			image: 'https://zastfoods.b-cdn.net/wp-content/uploads/2017/05/yellow-round-nachos.jpg'
+		},
+		{
+			name: 'Apple',
+			image:
+				'https://media.post.rvohealth.io/wp-content/uploads/2020/09/health-benefits-of-apples-1200x628-facebook-1200x628.jpg'
+		},
+		{
+			name: 'Orange',
+			image:
+				'https://cdn-prod.medicalnewstoday.com/content/images/articles/272/272782/oranges-in-a-box.jpg'
+		},
+		{
+			name: 'Refried Beans',
+			image:
+				'https://www.allrecipes.com/thmb/M7cF4MGiiYs4Q03PXXsCT-90Foc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/70312-Refried-Beans-Without-the-Fry-DDMFS-4X3-2643-f6a23c1b1e5d41108f8a1e7a07284202.jpg'
+		},
+		{
+			name: 'Salsa',
+			image:
+				'https://www.spendwithpennies.com/wp-content/uploads/2020/07/Restaurant-Style-Salsa-SpendWithPennies-6-480x270.jpg'
+		},
+		{
+			name: 'Diced Tomatoes',
+			image:
+				'https://www.seriouseats.com/thmb/fRUV6x9QwmivMZEe1Vwu3HSdxkQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__images__2016__09__20160909-minestrone-04-e526220713eb448a84c34cadc3319574.jpg'
+		},
+		{
+			name: 'Chicken Fajita',
+			image:
+				'https://www.eatwell101.com/wp-content/uploads/2020/07/Grilled-Chicken-Fajitas-Recipe-1.jpg'
+		},
+		{
+			name: 'Spicy Beef',
+			image:
+				'https://www.allrecipes.com/thmb/tQq1D3TigZEeysde4qL0LZ0N9D4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/229112-ground-beef-with-homemade-taco-seasoning-mix-DDMFS-4x3-719013d51e844a948c0b39cccb5ed908.jpg'
+		},
+		{
+			name: 'Iceberg Lettuce',
+			image:
+				'https://www.wikihow.com/images/thumb/9/95/Cut-Iceberg-Lettuce-Step-8-Version-2.jpg/550px-nowatermark-Cut-Iceberg-Lettuce-Step-8-Version-2.jpg'
+		},
+		{name: 'Soft Taco', image: 'https://elriogrande.net/wp-content/uploads/2021/09/soft-tacos-915X610.jpg'}
 	];
 	const options = {
 		includeScore: true,
@@ -243,16 +308,14 @@ export async function load({ params, fetch }) {
 			today.push(newCategory);
 		}
 		let category = today.find((x) => {
-			console.log(x);
 			return x.id == meal.rowId;
 		});
 		let result = fuse.search(meal.componentEnglishName)[0]?.item.image;
 		meal.image = result;
 		category.items.push(meal);
-		console.log(meal.componentName);
 	}
-	today = today.sort((a,b) => {
+	today = today.sort((a, b) => {
 		return a.id > b.id ? 1 : -1;
-	})
+	});
 	return { today: today, date: new Date(date), todayDate: normalURL ? null : new Date(date) };
 }
