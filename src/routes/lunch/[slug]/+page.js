@@ -9,7 +9,7 @@ export async function load({ params, fetch }) {
 		: new Date().toLocaleString(undefined, { day: '2-digit', year: 'numeric', month: '2-digit' });
 
 	let res = await fetch(
-		`https://apiservicelocators.fdmealplanner.com/api/v1/data-locator-webapi/3/meals?accountId=78&endDate=${date}&isActive=true&isStandalone&locationId=430&mealPeriodId=2&menuId=0&monthId=4&selectedDate=${date}&startDate=${date}&tenantId=3&timeOffset=0&year=2024`,
+		`https://apiservicelocators.fdmealplanner.com/api/v1/data-locator-webapi/3/meals?accountId=78&endDate=${date}&isActive=true&isStandalone&locationId=430&mealPeriodId=2&menuId=0&monthId=${new Date(date).getMonth() + 1}&selectedDate=${date}&startDate=${date}&tenantId=3&timeOffset=0&year=2024`,
 		{
 			headers: {
 				accept: 'application/json, text/plain, */*',
