@@ -1,5 +1,6 @@
 import { error } from '@sveltejs/kit';
 import Fuse from 'fuse.js';
+import { comment } from 'postcss';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params, fetch }) {
@@ -274,7 +275,10 @@ export async function load({ params, fetch }) {
 			image:
 				'https://www.wikihow.com/images/thumb/9/95/Cut-Iceberg-Lettuce-Step-8-Version-2.jpg/550px-nowatermark-Cut-Iceberg-Lettuce-Step-8-Version-2.jpg'
 		},
-		{name: 'Soft Taco', image: 'https://elriogrande.net/wp-content/uploads/2021/09/soft-tacos-915X610.jpg'}
+		{
+			name: 'Soft Taco',
+			image: 'https://elriogrande.net/wp-content/uploads/2021/09/soft-tacos-915X610.jpg'
+		}
 	];
 	const options = {
 		includeScore: true,
@@ -301,9 +305,10 @@ export async function load({ params, fetch }) {
 				return x.id == meal.rowId;
 			})
 		) {
+			console.log(meal.rowId, meal.weekId);
 			let concept = data.result[0].conceptData.find((x) => {
-				return x.rowId == meal.rowId && x.weekId == meal.weekId;
-			});
+				return x.rowId == meal.rowId; //&& x.weekId == meal.weekId;
+			}) || { conceptName: "couldn't find concept" };
 			let newCategory = { name: concept.conceptName, id: meal.rowId, items: [] };
 			today.push(newCategory);
 		}
