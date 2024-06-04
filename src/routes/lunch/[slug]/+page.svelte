@@ -154,7 +154,7 @@
 			{#each today as category}
 				<li>
 					<h2 class="font-semibold text-2xl my-1">{category.name}</h2>
-					<div class="flex overflow-x-auto w-full">
+					<div class="flex overflow-x-auto w-full snap-x">
 						{#each category.items as meal}
 							<div
 								style={`background-image: linear-gradient(
@@ -162,7 +162,7 @@
 								rgba(0, 0, 0, 0),
 								rgba(0, 0, 0, 0.6)
 							  ), url("${encodeURI(meal.image)}");`}
-								class="h-48 w-full rounded-md bg-cover bg-center mr-2 items-end flex max-w-[368px]"
+								class="h-48 w-full rounded-md bg-cover bg-center mr-2 items-end flex max-w-[368px] snap-center"
 							>
 								<div class="w-full flex justify-between items-center m-2">
 									<span class="text-white mr-1 min-w-40">{meal.componentEnglishName}</span>
