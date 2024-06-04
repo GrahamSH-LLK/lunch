@@ -314,7 +314,6 @@ export async function load({ params, fetch }) {
 				return x.id == meal.rowId;
 			})
 		) {
-			console.log(meal.rowId, meal.weekId);
 			let concept = data.result[0].conceptData.find((x) => {
 				return x.rowId == meal.rowId; //&& x.weekId == meal.weekId;
 			}) || { conceptName: "couldn't find concept" };
@@ -325,7 +324,6 @@ export async function load({ params, fetch }) {
 			return x.id == meal.rowId;
 		});
 		let result = fuse.search(meal.componentEnglishName)[0]?.item.image;
-		console.log(result)
 		if (meal.componentEnglishName.includes('Pizza') && !result.includes('pizza')) {
 			result = `https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2022%2F02%2F15%2Fclassic-cheese-pizza-FT-RECIPE0422.jpg&q=60`;
 		} else if (category.name == 'Deli Picks') {
