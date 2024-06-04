@@ -6,7 +6,7 @@
 	import Nav from '$lib/Nav.svelte';
 	import Modal from '$lib/Modal.svelte';
 	import * as Sheet from '$lib/components/ui/sheet';
-
+	import { StarFilled, Star } from 'svelte-radix';
 	import StarRating from '@ernane/svelte-star-rating';
 	let config = {
 		readOnly: false,
@@ -186,20 +186,15 @@
 												</Sheet.Description>
 											</Sheet.Header>
 
-											<div class="flex justify-between pt-2">
-												{#if false}
-													<span class="font-bold"
-														>ratings temporarily disabled while i figure out the new api 🫡</span
-													>
-													<span class="italic">it's probably a 3.5</span>
-
-													<span class="font-bold"
-														>{meal['ratings']
-															? `${meal['rating']} stars  (${meal['ratings']} ratings)`
-															: 'No ratings yet'}
-													</span>
-													<StarRating bind:config on:change={changeSliderInput} />
-												{/if}
+											<div class="flex pt-2 gap-2">
+												{#each { length: 5 } as _, star}
+													{#if meal.ratings >= star + 1}
+														<StarFilled></StarFilled>
+													{:else}
+														<Star></Star>
+													{/if}
+												{/each}
+											<span class="font-light">{meal.ratings} stars</span>
 											</div>
 											<div class="flex">
 												{#if false}
@@ -226,6 +221,7 @@
 													</div>
 												</div>
 											</div>
+											
 											<table class="w-64 p-4 border-2 border-black border-spacing-4">
 												<thead class="border-b border-b-black px-2">
 													<tr>
