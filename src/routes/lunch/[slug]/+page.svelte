@@ -154,7 +154,7 @@
 			{#each today as category}
 				<li>
 					<h2 class="font-semibold text-2xl my-1">{category.name}</h2>
-					<div class="flex overflow-scroll w-full">
+					<div class="flex overflow-x-auto w-full">
 						{#each category.items as meal}
 							<div
 								style={`background-image: linear-gradient(
