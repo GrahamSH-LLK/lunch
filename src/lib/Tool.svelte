@@ -8,13 +8,13 @@
 	<li class="flex justify-between gap-x-6 py-5 items-center">
 		<div class="flex min-w-0 gap-x-4">
 			<img
-				class="h-12 w-12 flex-none rounded-full bg-gray-50"
+				class="h-12 w-12 flex-none  "
 				src={`https://emojiapi.dev/api/v1/${emoji}.svg`}
 				alt=""
 			/>
 			<div class="min-w-0 flex-auto">
-				<p class="text-sm font-semibold leading-6 text-gray-900">{name}</p>
-				<p class="mt-1 truncate text-xs leading-5 text-gray-500">{info}</p>
+				<p class="text-sm font-semibold leading-6 text-primary">{name}</p>
+				<p class="mt-1 truncate text-xs leading-5 text-primary opacity-70">{info}</p>
 			</div>
 		</div>
 		<div class=" shrink-0 flex flex-col align-middle">
