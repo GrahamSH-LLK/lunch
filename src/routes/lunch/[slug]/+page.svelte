@@ -141,7 +141,7 @@
 	/>
 {/if}
 <Nav emoji={'🍽️'} pagename="Lunch">
-	<Button href="/lunch/today" class="mr-2" target="_blank">📌 Today</Button>
+	<Button href="/lunch/today" class="mr-2" target="_blank">Today</Button>
 	<DatePicker bind:value={dateObj} />
 </Nav>
 
