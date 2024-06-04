@@ -1,6 +1,5 @@
 import { error } from '@sveltejs/kit';
 import Fuse from 'fuse.js';
-import { comment } from 'postcss';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params, fetch }) {
