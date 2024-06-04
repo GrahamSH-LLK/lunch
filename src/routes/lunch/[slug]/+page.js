@@ -59,11 +59,11 @@ export async function load({ params, fetch }) {
 		{
 			name: 'Cheese Pizza',
 			image:
-				'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2022%2F02%2F15%2Fclassic-cheese-pizza-FT-RECIPE0422.jpg&q=60'
+				'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2022%2F02%2F15%2Fclassic-cheese-pizza-FT-RECIPE0422.jpg&q=60&pizza'
 		},
 		{
 			name: 'Pepperoni Pizza',
-			image: 'https://www.tasteatlas.com/images/dishes/b05a0af72ad845f3a6abe16143d7853a.jpg'
+			image: 'https://www.tasteatlas.com/images/dishes/b05a0af72ad845f3a6abe16143d7853a.jpg?pizza'
 		},
 		{
 			name: 'Tater Tots',
@@ -325,6 +325,13 @@ export async function load({ params, fetch }) {
 			return x.id == meal.rowId;
 		});
 		let result = fuse.search(meal.componentEnglishName)[0]?.item.image;
+		console.log(result)
+		if (meal.componentEnglishName.includes('Pizza') && !result.includes('pizza')) {
+			result = `https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2022%2F02%2F15%2Fclassic-cheese-pizza-FT-RECIPE0422.jpg&q=60`;
+		} else if (category.name == 'Deli Picks') {
+			result = 'https://homemaderecipes.com/wp-content/uploads/2016/08/Two-Bacon-Burgers-on-Plates-deli-sandwiches-px-feature.jpg';
+
+		}
 		meal.image = result;
 		category.items.push(meal);
 	}

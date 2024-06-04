@@ -110,12 +110,16 @@
 		meal = meal;
 		config.score = await getMyRating(meal.id);
 	};
-	onMount(()=> {
-		HTMLElement.prototype.scrollIntoView = function() {}
-		window.scrollTo = function (x,y) { console.log('hi', x, y)}
-		window.scrollBy = function () {}
-
-	})
+	onMount(() => {
+		HTMLElement.prototype.scrollIntoView = function () {};
+		window.scrollTo = function (x, y) {
+			console.log('hi', x, y);
+		};
+		window.scrollBy = function () {};
+	});
+	const uppercaseFirstLetter = (string) => {
+		return string[0].toUpperCase() + string.substring(1);
+	};
 </script>
 
 {#if today[0].items.length}
@@ -137,7 +141,7 @@
 	/>
 {/if}
 <Nav emoji={'🍽️'} pagename="Lunch">
-	<a href="/lunch/today" class="font-bold text-3xl" target="_blank">📌 Today</a>
+	<Button href="/lunch/today" class="mr-2" target="_blank">📌 Today</Button>
 	<DatePicker bind:value={dateObj} />
 </Nav>
 
@@ -158,122 +162,130 @@
 								rgba(0, 0, 0, 0),
 								rgba(0, 0, 0, 0.6)
 							  ), url("${encodeURI(meal.image)}");`}
-								class="h-32 w-full rounded-md bg-cover bg-center mr-2"
+								class="h-48 w-full rounded-md bg-cover bg-center mr-2 items-end flex"
 							>
-								<Sheet.Root>
-									<Sheet.Trigger><Button class="min-w-[105px]">{meal.componentEnglishName}</Button></Sheet.Trigger>
-								
+								<div class="w-full flex justify-between items-center m-2">
+									<span class="text-white mr-1">{meal.componentEnglishName}</span>
+									<Sheet.Root>
+										<Sheet.Trigger><Button variant="secondary">See More</Button></Sheet.Trigger>
 
-									<Sheet.Content>
-										<Sheet.Header>
-											<Sheet.Title>{meal.componentEnglishName}</Sheet.Title>
-											<Sheet.Description>
-												{meal['componentName']}
-											</Sheet.Description>
-										</Sheet.Header>
-
-										<div class="flex justify-between pt-2">
-											{#if false}
-
-											<span class="font-bold"
-												>ratings temporarily disabled while i figure out the new api 🫡</span
-											>
-											<span class="italic">it's probably a 3.5</span>
-
-												<span class="font-bold"
-													>{meal['ratings']
-														? `${meal['rating']} stars  (${meal['ratings']} ratings)`
-														: 'No ratings yet'}
-												</span>
-												<StarRating bind:config on:change={changeSliderInput} />
-											{/if}
-										</div>
-										<div class="flex">
-											{#if false}
-											<div class="font-bold">
-												<div class="h-10">Allergens (coming soon)</div>
-												<div class="h-10">Full Name</div>
-											</div>
-											{/if}
-											<div class="px-5">
-												<div class="flex h-10">
-													{#each allergens as allergen}
-														{#if meal['allergen_' + allergen] == 1}
-															<Tooltip
-																content={allergen.charAt(0).toUpperCase() + allergen.slice(1)}
-															>
-																<img
-																	src={`/allergens/${allergen}.png`}
-																	alt={allergen}
-																	class="h-10 w-10"
-																/></Tooltip
-															>
+										<Sheet.Content>
+											<Sheet.Header>
+												<Sheet.Title>{meal.componentEnglishName}</Sheet.Title>
+												<Sheet.Description>
+													<ul class="list-disc pl-4">
+														{#if meal['componentEnglishDescription']}
+															<li>{uppercaseFirstLetter(meal['componentEnglishDescription'])}</li>
+														{:else if meal['componentName']}
+															<li>{meal['componentName']}</li>
 														{/if}
-													{/each}
-												</div>
+														{#if meal['dietaryName']}
+															<li>{meal['dietaryName']}</li>
+														{/if}
+													</ul>
+												</Sheet.Description>
+											</Sheet.Header>
 
-												
+											<div class="flex justify-between pt-2">
+												{#if false}
+													<span class="font-bold"
+														>ratings temporarily disabled while i figure out the new api 🫡</span
+													>
+													<span class="italic">it's probably a 3.5</span>
+
+													<span class="font-bold"
+														>{meal['ratings']
+															? `${meal['rating']} stars  (${meal['ratings']} ratings)`
+															: 'No ratings yet'}
+													</span>
+													<StarRating bind:config on:change={changeSliderInput} />
+												{/if}
 											</div>
-										</div>
-										<table class="w-64 p-4 border-2 border-black border-spacing-4">
-											<thead class="border-b border-b-black px-2">
-												<tr>
-													<th class="font-black text-2xl" colspan="2">Nutrition Facts</th>
-												</tr>
-											</thead>
+											<div class="flex">
+												{#if false}
+													<div class="font-bold">
+														<div class="h-10">Allergens (coming soon)</div>
+														<div class="h-10">Full Name</div>
+													</div>
+												{/if}
+												<div class="px-5">
+													<div class="flex h-10">
+														{#each allergens as allergen}
+															{#if meal['allergen_' + allergen] == 1}
+																<Tooltip
+																	content={allergen.charAt(0).toUpperCase() + allergen.slice(1)}
+																>
+																	<img
+																		src={`/allergens/${allergen}.png`}
+																		alt={allergen}
+																		class="h-10 w-10"
+																	/></Tooltip
+																>
+															{/if}
+														{/each}
+													</div>
+												</div>
+											</div>
+											<table class="w-64 p-4 border-2 border-black border-spacing-4">
+												<thead class="border-b border-b-black px-2">
+													<tr>
+														<th class="font-black text-2xl" colspan="2">Nutrition Facts</th>
+													</tr>
+												</thead>
 
-											<tbody>
-												<tr class="bg-black h-2 px-1">
-													<td />
-												</tr>
-												<tr
-													><p class="font-bold px-1">Amount Per Serving</p>
-													<p class="text-3xl font-extrabold px-1">Calories {meal['calories']}</p>
-												</tr>
-												<tr class="bg-black h-1 px-1">
-													<td />
-												</tr>
-												<tr>
-													<p class="px-1">
-														<span class="font-bold">Total Fat</span>
-														{meal['fat']}g
-													</p>
-													<p class="px-6">
-														Saturated Fat {meal['saturatedFat']}g
-													</p>
-													<p class="px-6">
-														<span class="italic">Trans</span> Fat {meal['transFattyAcid']}g
-													</p>
-													<p class="px-1">
-														<span class="font-bold">Cholesterol</span>
-														{meal['cholesterol']}g
-													</p>
-													<p class="px-1">
-														<span class="font-bold">Sodium</span>
-														{meal['sodium']}g
-													</p>
+												<tbody>
+													<tr class="bg-black h-2 px-1">
+														<td />
+													</tr>
+													<tr
+														><p class="font-bold px-1">Amount Per Serving</p>
+														<p class="text-3xl font-extrabold px-1">Calories {meal['calories']}</p>
+													</tr>
+													<tr class="bg-black h-1 px-1">
+														<td />
+													</tr>
+													<tr>
+														<p class="px-1">
+															<span class="font-bold">Total Fat</span>
+															{meal['fat']}g
+														</p>
+														<p class="px-6">
+															Saturated Fat {meal['saturatedFat']}g
+														</p>
+														<p class="px-6">
+															<span class="italic">Trans</span> Fat {meal['transFattyAcid']}g
+														</p>
+														<p class="px-1">
+															<span class="font-bold">Cholesterol</span>
+															{meal['cholesterol']}g
+														</p>
+														<p class="px-1">
+															<span class="font-bold">Sodium</span>
+															{meal['sodium']}g
+														</p>
 
-													<p class="px-1">
-														<span class="font-bold">Total Carbohydrate</span>
-														{meal['carbohydrates']}g
-													</p>
-													<p class="px-6">
-														Dietary Fiber {meal['dietaryFiber']}g
-													</p>
-													<p class="px-6">
-														Sugar {meal['totalSugars']}g
-													</p>
-													<p class="px-1">
-														<span class="font-black">Protein</span>
-														{meal['protein']}g
-													</p>
-												</tr>
-											</tbody>
-										</table>
-									</Sheet.Content>
+														<p class="px-1">
+															<span class="font-bold">Total Carbohydrate</span>
+															{meal['carbohydrates']}g
+														</p>
+														<p class="px-6">
+															Dietary Fiber {meal['dietaryFiber']}g
+														</p>
+														<p class="px-6">
+															Sugar {meal['totalSugars']}g
+														</p>
+														<p class="px-1">
+															<span class="font-black">Protein</span>
+															{meal['protein']}g
+														</p>
+													</tr>
+												</tbody>
+											</table>
+										</Sheet.Content>
 
-									<!--</Tooltip>-->
-								</Sheet.Root>
+										<!--</Tooltip>-->
+									</Sheet.Root>
+								</div>
 							</div>
 						{/each}
 					</div>

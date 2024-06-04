@@ -15,6 +15,7 @@
         if (getDayOfWeek(date, 'en-US') == 0 || getDayOfWeek(date, 'en-US') == 6) {
             return true;
         }
+		
 		return false;
 	};
 </script>
@@ -24,7 +25,7 @@
 		<Button
 			variant="outline"
 			class={cn(
-				'w-[280px] justify-start text-left font-normal text-black',
+				'w-[280px] justify-start text-left font-normal',
 				!value && 'text-muted-foreground'
 			)}
 			builders={[builder]}
