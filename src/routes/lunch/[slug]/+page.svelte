@@ -5,6 +5,8 @@
 	import { Tooltip } from '@svelte-plugins/tooltips';
 	import Nav from '$lib/Nav.svelte';
 	import Modal from '$lib/Modal.svelte';
+	import * as Sheet from '$lib/components/ui/sheet';
+
 	import StarRating from '@ernane/svelte-star-rating';
 	let config = {
 		readOnly: false,
@@ -21,7 +23,9 @@
 		}
 	};
 	import '$src/app.css';
-	import { DateInput } from 'date-picker-svelte';
+	import DatePicker from '$lib/DatePicker.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
+	import { onMount } from 'svelte';
 	const getMyRating = async (product_id) => {
 		if (!localStorage.uuid) {
 			localStorage.setItem('uuid', crypto.randomUUID());
@@ -45,6 +49,7 @@
 	export let data;
 	$: today = data.today;
 	let date = data.date;
+	let dateObj = data.dateObj;
 	function relativeDate(date) {
 		const diff = date - new Date();
 		const days = Math.ceil(diff / 1000 / 60 / 60 / 24);
@@ -58,16 +63,18 @@
 		}
 	}
 	$: {
-		if (browser && data.todayDate?.getTime() != date.getTime()) {
+		if (browser && data.todayDate?.getTime() != dateObj.toDate().getTime()) {
 			goto(
 				`/lunch/${encodeURIComponent(
-					date.toLocaleString(undefined, { day: '2-digit', year: 'numeric', month: '2-digit' })
+					dateObj
+						.toDate()
+						.toLocaleString(undefined, { day: '2-digit', year: 'numeric', month: '2-digit' })
 				)}`,
 				{ replaceState: true }
 			);
 		}
 	}
-	let modalMeal;
+	let meal;
 	let showModal = false;
 	let allergens = [
 		'dairy',
@@ -93,16 +100,22 @@
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
 				uuid: localStorage.uuid,
-				product_id: modalMeal.id,
+				product_id: meal.id,
 				rating: config.score
 			})
 		});
 	};
 	const openModal = async (meal) => {
 		showModal = true;
-		modalMeal = meal;
+		meal = meal;
 		config.score = await getMyRating(meal.id);
 	};
+	onMount(()=> {
+		HTMLElement.prototype.scrollIntoView = function() {}
+		window.scrollTo = function (x,y) { console.log('hi', x, y)}
+		window.scrollBy = function () {}
+
+	})
 </script>
 
 {#if today[0].items.length}
@@ -125,106 +138,8 @@
 {/if}
 <Nav emoji={'🍽️'} pagename="Lunch">
 	<a href="/lunch/today" class="font-bold text-3xl" target="_blank">📌 Today</a>
-	<DateInput bind:value={date} />
+	<DatePicker bind:value={dateObj} />
 </Nav>
-
-<Modal bind:showModal class="">
-	{#if modalMeal}
-		<div
-			style={`background-image: linear-gradient(
-				to bottom,
-				rgba(0, 0, 0, 0),
-				rgba(0, 0, 0, 0.6)
-			  ), url("${encodeURI(modalMeal.image)}");`}
-			class="h-48 w-full rounded-md bg-cover bg-center relative"
-		>
-			<p class="absolute bottom-1 left-1 text-2xl text-white">
-				{modalMeal.componentEnglishName}
-			</p>
-		</div>
-		<div class="flex justify-between pt-2">
-			<span class="font-bold">ratings temporarily disabled while i figure out the new api 🫡</span>
-			<span class="italic">it's probably a 3.5</span>
-
-			{#if false}
-				<span class="font-bold"
-					>{modalMeal['ratings']
-						? `${modalMeal['rating']} stars  (${modalMeal['ratings']} ratings)`
-						: 'No ratings yet'}
-				</span>
-				<StarRating bind:config on:change={changeSliderInput} />
-			{/if}
-		</div>
-		<div class="flex">
-			<div class="font-bold">
-				<div class="h-10">Allergens (coming soon)</div>
-				<div class="h-10">Full Name</div>
-			</div>
-			<div class="px-5">
-				<div class="flex h-10">
-					{#each allergens as allergen}
-						{#if modalMeal['allergen_' + allergen] == 1}
-							<Tooltip content={allergen.charAt(0).toUpperCase() + allergen.slice(1)}>
-								<img src={`/allergens/${allergen}.png`} alt={allergen} class="h-10 w-10" /></Tooltip
-							>
-						{/if}
-					{/each}
-				</div>
-
-				{modalMeal['componentName']}
-			</div>
-		</div>
-		<table class="w-64 p-4 border-2 border-black border-spacing-4">
-			<thead class="border-b border-b-black px-2">
-				<tr>
-					<th class="font-black text-2xl" colspan="2">Nutrition Facts</th>
-				</tr>
-			</thead>
-
-			<tbody>
-				<tr class="bg-black h-2 px-1">
-					<td />
-				</tr>
-				<tr
-					><p class="font-bold px-1">Amount Per Serving</p>
-					<p class="text-3xl font-extrabold px-1">Calories {modalMeal['calories']}</p>
-				</tr>
-				<tr class="bg-black h-1 px-1">
-					<td />
-				</tr>
-				<tr>
-					<p class="px-1">
-						<span class="font-bold">Total Fat</span>
-						{modalMeal['fat']}g
-					</p>
-					<p class="px-6">
-						Saturated Fat {modalMeal['saturatedFat']}g
-					</p>
-					<p class="px-6">
-						<span class="italic">Trans</span> Fat {modalMeal['transFattyAcid']}g
-					</p>
-					<p class="px-1">
-						<span class="font-bold">Cholesterol</span>
-						{modalMeal['cholesterol']}g
-					</p>
-					<p class="px-1"><span class="font-bold">Sodium</span> {modalMeal['sodium']}g</p>
-
-					<p class="px-1">
-						<span class="font-bold">Total Carbohydrate</span>
-						{modalMeal['carbohydrates']}g
-					</p>
-					<p class="px-6">
-						Dietary Fiber {modalMeal['dietaryFiber']}g
-					</p>
-					<p class="px-6">
-						Sugar {modalMeal['totalSugars']}g
-					</p>
-					<p class="px-1"><span class="font-black">Protein</span> {modalMeal['protein']}g</p>
-				</tr>
-			</tbody>
-		</table>
-	{/if}
-</Modal>
 
 <div class="m-4 ml-8">
 	{#if date.getDay() == 0 || date.getDay() == 6}
@@ -237,18 +152,129 @@
 					<h2 class="font-semibold text-2xl my-1">{category.name}</h2>
 					<div class="flex overflow-scroll w-full">
 						{#each category.items as meal}
-							<Tooltip content={meal.componentEnglishDescription}>
-								<div
-									class="h-48 w-72 bg-white rounded-md shadow-sm mr-2 shrink-0"
-									on:click={openModal(meal)}
-								>
-									<div
-										style={`background-image: url("${encodeURI(meal.image)}");`}
-										class="h-32 w-full rounded-t-md bg-cover"
-									/>
-									<span class="m-2 font-bold">{meal.componentEnglishName} </span>
-								</div>
-							</Tooltip>
+							<div
+								style={`background-image: linear-gradient(
+								to bottom,
+								rgba(0, 0, 0, 0),
+								rgba(0, 0, 0, 0.6)
+							  ), url("${encodeURI(meal.image)}");`}
+								class="h-32 w-full rounded-md bg-cover bg-center mr-2"
+							>
+								<Sheet.Root>
+									<Sheet.Trigger><Button class="min-w-[105px]">{meal.componentEnglishName}</Button></Sheet.Trigger>
+								
+
+									<Sheet.Content>
+										<Sheet.Header>
+											<Sheet.Title>{meal.componentEnglishName}</Sheet.Title>
+											<Sheet.Description>
+												{meal['componentName']}
+											</Sheet.Description>
+										</Sheet.Header>
+
+										<div class="flex justify-between pt-2">
+											{#if false}
+
+											<span class="font-bold"
+												>ratings temporarily disabled while i figure out the new api 🫡</span
+											>
+											<span class="italic">it's probably a 3.5</span>
+
+												<span class="font-bold"
+													>{meal['ratings']
+														? `${meal['rating']} stars  (${meal['ratings']} ratings)`
+														: 'No ratings yet'}
+												</span>
+												<StarRating bind:config on:change={changeSliderInput} />
+											{/if}
+										</div>
+										<div class="flex">
+											{#if false}
+											<div class="font-bold">
+												<div class="h-10">Allergens (coming soon)</div>
+												<div class="h-10">Full Name</div>
+											</div>
+											{/if}
+											<div class="px-5">
+												<div class="flex h-10">
+													{#each allergens as allergen}
+														{#if meal['allergen_' + allergen] == 1}
+															<Tooltip
+																content={allergen.charAt(0).toUpperCase() + allergen.slice(1)}
+															>
+																<img
+																	src={`/allergens/${allergen}.png`}
+																	alt={allergen}
+																	class="h-10 w-10"
+																/></Tooltip
+															>
+														{/if}
+													{/each}
+												</div>
+
+												
+											</div>
+										</div>
+										<table class="w-64 p-4 border-2 border-black border-spacing-4">
+											<thead class="border-b border-b-black px-2">
+												<tr>
+													<th class="font-black text-2xl" colspan="2">Nutrition Facts</th>
+												</tr>
+											</thead>
+
+											<tbody>
+												<tr class="bg-black h-2 px-1">
+													<td />
+												</tr>
+												<tr
+													><p class="font-bold px-1">Amount Per Serving</p>
+													<p class="text-3xl font-extrabold px-1">Calories {meal['calories']}</p>
+												</tr>
+												<tr class="bg-black h-1 px-1">
+													<td />
+												</tr>
+												<tr>
+													<p class="px-1">
+														<span class="font-bold">Total Fat</span>
+														{meal['fat']}g
+													</p>
+													<p class="px-6">
+														Saturated Fat {meal['saturatedFat']}g
+													</p>
+													<p class="px-6">
+														<span class="italic">Trans</span> Fat {meal['transFattyAcid']}g
+													</p>
+													<p class="px-1">
+														<span class="font-bold">Cholesterol</span>
+														{meal['cholesterol']}g
+													</p>
+													<p class="px-1">
+														<span class="font-bold">Sodium</span>
+														{meal['sodium']}g
+													</p>
+
+													<p class="px-1">
+														<span class="font-bold">Total Carbohydrate</span>
+														{meal['carbohydrates']}g
+													</p>
+													<p class="px-6">
+														Dietary Fiber {meal['dietaryFiber']}g
+													</p>
+													<p class="px-6">
+														Sugar {meal['totalSugars']}g
+													</p>
+													<p class="px-1">
+														<span class="font-black">Protein</span>
+														{meal['protein']}g
+													</p>
+												</tr>
+											</tbody>
+										</table>
+									</Sheet.Content>
+
+									<!--</Tooltip>-->
+								</Sheet.Root>
+							</div>
 						{/each}
 					</div>
 				</li>

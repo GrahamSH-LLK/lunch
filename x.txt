@@ -1,0 +1,122 @@
+								<!--<Tooltip content={meal.componentEnglishDescription}>-->
+								<Sheet.Trigger
+									><div
+										style={`background-image: url("${encodeURI(meal.image)}");`}
+										class="h-32 w-full rounded-t-md bg-cover"
+									/>
+									<span class="m-2 font-bold">{meal.componentEnglishName} </span></Sheet.Trigger
+								>
+								<Sheet.Content>
+									<Sheet.Header>
+										<Sheet.Title>Edit profile</Sheet.Title>
+										<Sheet.Description>
+											Make changes to your profile here. Click save when you're done.
+										</Sheet.Description>
+									</Sheet.Header>
+
+									<div
+										style={`background-image: linear-gradient(
+											to bottom,
+											rgba(0, 0, 0, 0),
+											rgba(0, 0, 0, 0.6)
+										  ), url("${encodeURI(meal.image)}");`}
+										class="h-48 w-full rounded-md bg-cover bg-center relative"
+									>
+										<p class="absolute bottom-1 left-1 text-2xl text-white">
+											{meal.componentEnglishName}
+										</p>
+									</div>
+									<div class="flex justify-between pt-2">
+										<span class="font-bold"
+											>ratings temporarily disabled while i figure out the new api 🫡</span
+										>
+										<span class="italic">it's probably a 3.5</span>
+
+										{#if false}
+											<span class="font-bold"
+												>{meal['ratings']
+													? `${meal['rating']} stars  (${meal['ratings']} ratings)`
+													: 'No ratings yet'}
+											</span>
+											<StarRating bind:config on:change={changeSliderInput} />
+										{/if}
+									</div>
+									<div class="flex">
+										<div class="font-bold">
+											<div class="h-10">Allergens (coming soon)</div>
+											<div class="h-10">Full Name</div>
+										</div>
+										<div class="px-5">
+											<div class="flex h-10">
+												{#each allergens as allergen}
+													{#if meal['allergen_' + allergen] == 1}
+														<Tooltip content={allergen.charAt(0).toUpperCase() + allergen.slice(1)}>
+															<img
+																src={`/allergens/${allergen}.png`}
+																alt={allergen}
+																class="h-10 w-10"
+															/></Tooltip
+														>
+													{/if}
+												{/each}
+											</div>
+
+											{meal['componentName']}
+										</div>
+									</div>
+									<table class="w-64 p-4 border-2 border-black border-spacing-4">
+										<thead class="border-b border-b-black px-2">
+											<tr>
+												<th class="font-black text-2xl" colspan="2">Nutrition Facts</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<tr class="bg-black h-2 px-1">
+												<td />
+											</tr>
+											<tr
+												><p class="font-bold px-1">Amount Per Serving</p>
+												<p class="text-3xl font-extrabold px-1">Calories {meal['calories']}</p>
+											</tr>
+											<tr class="bg-black h-1 px-1">
+												<td />
+											</tr>
+											<tr>
+												<p class="px-1">
+													<span class="font-bold">Total Fat</span>
+													{meal['fat']}g
+												</p>
+												<p class="px-6">
+													Saturated Fat {meal['saturatedFat']}g
+												</p>
+												<p class="px-6">
+													<span class="italic">Trans</span> Fat {meal['transFattyAcid']}g
+												</p>
+												<p class="px-1">
+													<span class="font-bold">Cholesterol</span>
+													{meal['cholesterol']}g
+												</p>
+												<p class="px-1">
+													<span class="font-bold">Sodium</span>
+													{meal['sodium']}g
+												</p>
+
+												<p class="px-1">
+													<span class="font-bold">Total Carbohydrate</span>
+													{meal['carbohydrates']}g
+												</p>
+												<p class="px-6">
+													Dietary Fiber {meal['dietaryFiber']}g
+												</p>
+												<p class="px-6">
+													Sugar {meal['totalSugars']}g
+												</p>
+												<p class="px-1">
+													<span class="font-black">Protein</span>
+													{meal['protein']}g
+												</p>
+											</tr>
+										</tbody>
+									</table>
+						

@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import Fuse from 'fuse.js';
-
+import { CalendarDate } from '@internationalized/date';
 /** @type {import('./$types').PageLoad} */
 export async function load({ params, fetch }) {
 	let normalURL = params.slug != 'today';
@@ -297,7 +297,17 @@ export async function load({ params, fetch }) {
 			today[today.length - 1].items.push(meal.product);
 		}
 	}*/
+	let dateNative = new Date(date);
+	let dateObj = new CalendarDate(
+		dateNative.getFullYear(),
+		dateNative.getMonth() + 1,
+		dateNative.getDate()
+	);
 
+	if (!data.result.length) {
+		return { today: [], date: dateNative, dateObj, todayDate: normalURL ? null : new Date(date) };
+
+	}
 	for (let meal of data.result[0].menuRecipiesData) {
 		if (
 			!today.some((x) => {
@@ -321,5 +331,5 @@ export async function load({ params, fetch }) {
 	today = today.sort((a, b) => {
 		return a.id > b.id ? 1 : -1;
 	});
-	return { today: today, date: new Date(date), todayDate: normalURL ? null : new Date(date) };
+	return { today: today, date: dateNative, dateObj, todayDate: normalURL ? null : new Date(date) };
 }
