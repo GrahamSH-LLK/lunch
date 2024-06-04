@@ -25,7 +25,7 @@
 		<Button
 			variant="outline"
 			class={cn(
-				'w-[280px] justify-start text-left font-normal',
+				'w-[160px] justify-start text-left font-normal',
 				!value && 'text-muted-foreground'
 			)}
 			builders={[builder]}

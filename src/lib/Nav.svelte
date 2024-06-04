@@ -9,7 +9,7 @@
 </script>
 
 <div class="flex w-full px-6 py-4 bg-blue-400 justify-between content-center">
-	<span class=" font-bold text-3xl text-white"><a href="/">{emoji} LHS {pagename}</a></span>
+	<span class=" font-bold text-3xl text-white"><a href="/">{emoji} <span class="sm:inline hidden">LHS {pagename}</span></a></span>
 	<div class="flex items-center">
 		<slot></slot>
 

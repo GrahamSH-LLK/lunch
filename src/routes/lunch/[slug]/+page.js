@@ -57,28 +57,9 @@ export async function load({ params, fetch }) {
 				'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F43%2F2022%2F06%2F29%2F18031-baked-ziti-ii-ddmfs-1x1-0340.jpg'
 		},
 		{
-			name: 'Cheese Pizza',
-			image:
-				'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2022%2F02%2F15%2Fclassic-cheese-pizza-FT-RECIPE0422.jpg&q=60&pizza'
-		},
-		{
-			name: 'Pepperoni Pizza',
-			image: 'https://www.tasteatlas.com/images/dishes/b05a0af72ad845f3a6abe16143d7853a.jpg?pizza'
-		},
-		{
 			name: 'Tater Tots',
 			image:
 				'https://cdn.vox-cdn.com/thumbor/Nc8pN-5K37_EGya_Ac-BsY7NoZ8=/1400x1050/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/9064347/tater_tots_closeup.jpg'
-		},
-		{
-			name: 'Made to Order Deli',
-			image:
-				'https://homemaderecipes.com/wp-content/uploads/2016/08/Two-Bacon-Burgers-on-Plates-deli-sandwiches-px-feature.jpg'
-		},
-		{
-			name: 'Chicken Caesar Salad',
-			image:
-				'https://dinnersdishesanddesserts.com/wp-content/uploads/2021/11/Caesar-Salad-square-scaled.jpg'
 		},
 		{
 			name: 'Assorted Fruit',
@@ -127,11 +108,6 @@ export async function load({ params, fetch }) {
 			name: 'Steamed Broccoli',
 			image:
 				'https://assets.epicurious.com/photos/5761cfc58accf290434553a9/master/pass/steamed-broccoli-with-olive-oil-garlic-and-lemon.jpg'
-		},
-		{
-			name: 'Garden Salad',
-			image:
-				'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-beet-salad-jpg-1526059794.jpg'
 		},
 		{
 			name: 'Ranch Dressing',
@@ -279,10 +255,68 @@ export async function load({ params, fetch }) {
 			image: 'https://elriogrande.net/wp-content/uploads/2021/09/soft-tacos-915X610.jpg'
 		}
 	];
+	let specialSearchSets = {
+		'Pizza Picks': [
+			{
+				name: 'Cheese Pizza',
+				image:
+					'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2022%2F02%2F15%2Fclassic-cheese-pizza-FT-RECIPE0422.jpg&q=60&pizza'
+			},
+			{
+				name: 'Pepperoni Pizza',
+				image: 'https://www.tasteatlas.com/images/dishes/b05a0af72ad845f3a6abe16143d7853a.jpg?pizza'
+			}
+		],
+		'Deli Picks': [
+			{
+				name: 'Made to Order Deli',
+				image:
+					'https://homemaderecipes.com/wp-content/uploads/2016/08/Two-Bacon-Burgers-on-Plates-deli-sandwiches-px-feature.jpg'
+			}
+		],
+		'Express Picks': [
+			{
+				name: 'Cheeseburger on Bun',
+				alternateName: 'Double Bacon Burger',
+				image:
+					'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cheeseburger.jpg/1200px-Cheeseburger.jpg'
+			},
+
+			{
+				name: 'Corn Dog',
+				alternateName: 'Chicken Corn Dog',
+				image:
+					'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9RLwDauoQAPaapGkm4HAJsF_4V2VF5PHquyI1WUHkkA&s'
+			},
+			{
+				name: 'Chicken Patty Sandwich',
+				alternateName: 'Spicy Chicken Sandwich',
+				image:
+					'https://mrs.mdek12.org//images/made/photos_recipes/2015_732_chicken_patty_sandwich_300_200_int_c1.jpg'
+			}
+		],
+		'Market Fresh': [
+			{
+				name: 'Garden Salad',
+				image:
+					'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-beet-salad-jpg-1526059794.jpg'
+			},
+			{
+				name: 'Chicken Caesar Salad',
+				image:
+					'https://dinnersdishesanddesserts.com/wp-content/uploads/2021/11/Caesar-Salad-square-scaled.jpg'
+			}
+		]
+	};
+	let specialSearchIndexes = {};
 	const options = {
 		includeScore: true,
 		keys: ['name', 'alternateName']
 	};
+
+	for (let specialSearchSet in specialSearchSets) {
+		specialSearchIndexes[specialSearchSet] = new Fuse(specialSearchSets[specialSearchSet], options);
+	}
 	const fuse = new Fuse(images, options);
 	/*
 	for (let mealdex in data.data.menuTypes[0].items) {
@@ -306,7 +340,6 @@ export async function load({ params, fetch }) {
 
 	if (!data.result.length) {
 		return { today: [], date: dateNative, dateObj, todayDate: normalURL ? null : new Date(date) };
-
 	}
 	for (let meal of data.result[0].menuRecipiesData) {
 		if (
@@ -323,13 +356,12 @@ export async function load({ params, fetch }) {
 		let category = today.find((x) => {
 			return x.id == meal.rowId;
 		});
-		let result = fuse.search(meal.componentEnglishName)[0]?.item.image;
-		if (meal.componentEnglishName.includes('Pizza') && !result.includes('pizza')) {
-			result = `https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2022%2F02%2F15%2Fclassic-cheese-pizza-FT-RECIPE0422.jpg&q=60`;
-		} else if (category.name == 'Deli Picks') {
-			result = 'https://homemaderecipes.com/wp-content/uploads/2016/08/Two-Bacon-Burgers-on-Plates-deli-sandwiches-px-feature.jpg';
+		let index = specialSearchIndexes[category.name] || fuse;
 
-		}
+		let result =
+			index.search(meal.componentEnglishName)[0]?.item.image ||
+			specialSearchSets[category.name]?.[0]?.image;
+
 		meal.image = result;
 		category.items.push(meal);
 	}

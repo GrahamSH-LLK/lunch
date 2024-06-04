@@ -162,10 +162,10 @@
 								rgba(0, 0, 0, 0),
 								rgba(0, 0, 0, 0.6)
 							  ), url("${encodeURI(meal.image)}");`}
-								class="h-48 w-full rounded-md bg-cover bg-center mr-2 items-end flex"
+								class="h-48 w-full rounded-md bg-cover bg-center mr-2 items-end flex max-w-[368px]"
 							>
 								<div class="w-full flex justify-between items-center m-2">
-									<span class="text-white mr-1">{meal.componentEnglishName}</span>
+									<span class="text-white mr-1 min-w-40">{meal.componentEnglishName}</span>
 									<Sheet.Root>
 										<Sheet.Trigger><Button variant="secondary">See More</Button></Sheet.Trigger>
 
