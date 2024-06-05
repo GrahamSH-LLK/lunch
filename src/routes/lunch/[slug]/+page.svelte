@@ -113,11 +113,14 @@
 		config.score = await getMyRating(meal.id);
 	};
 	onMount(() => {
-		HTMLElement.prototype.scrollIntoView = function () {};
-		window.scrollTo = function (x, y) {
-			console.log('hi', x, y);
+		// oh god now *this* is a hacky hack
+		const oldFocus = HTMLElement.prototype.focus;
+		HTMLElement.prototype.focus = function () {
+			
+			if (this.getAttribute('data-melt-calendar-prevbutton') !== '') {
+				oldFocus.bind(this)();
+			}
 		};
-		window.scrollBy = function () {};
 	});
 	const uppercaseFirstLetter = (string) => {
 		return string[0].toUpperCase() + string.substring(1);
@@ -170,7 +173,7 @@
 								rgba(0, 0, 0, 0.6)
 							  ), url("${encodeURI(meal.image)}");`}
 								class="h-48 w-full rounded-md bg-cover bg-center mr-2 items-end flex max-w-[368px] snap-center"
-								in:slide={{ duration: 300, delay: 180, axis: 'x' }} out:slide={{ duration: 200, axis: 'x' }}
+								in:fade={{ duration: 300, delay: 180, axis: 'x' }} out:fade={{ duration: 200, axis: 'x' }}
 							>
 								<div class="w-full flex justify-between items-center m-2">
 									<span class="text-white mr-1 min-w-40">{meal.componentEnglishName}</span>
