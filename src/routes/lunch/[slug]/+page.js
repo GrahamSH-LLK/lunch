@@ -253,6 +253,10 @@ export async function load({ params, fetch }) {
 		{
 			name: 'Soft Taco',
 			image: 'https://elriogrande.net/wp-content/uploads/2021/09/soft-tacos-915X610.jpg'
+		},
+		{
+			name: 'Shredded Cheddar Cheese',
+			image: 'https://shop.burnettdairy.com/cdn/shop/products/BD_ShredMildChed.jpg?v=1589902985'
 		}
 	];
 	let specialSearchSets = {
