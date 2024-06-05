@@ -8,8 +8,8 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 </script>
 
-<div class="flex w-full px-6 py-4 bg-blue-400 justify-between content-center">
-	<span class=" font-bold text-3xl text-white"><a href="/">{emoji} <span class="sm:inline hidden">LHS {pagename}</span></a></span>
+<div class="flex w-full px-6 py-4 bg-muted justify-between content-center border-b">
+	<span class=" font-bold text-3xl text-primary"><a href="/">{emoji} <span class="sm:inline hidden">LHS {pagename}</span></a></span>
 	<div class="flex items-center">
 		<slot></slot>
 
