@@ -157,7 +157,7 @@ export async function load({ params, fetch }) {
 				'https://rebelsmuggling.com/storage/products/productImages/qz-zzzz-1233__1-300x300-resize.jpg'
 		},
 		{
-			name: 'Waffle & Sausage',
+			name: 'Whole Grain Waffles',
 			image: 'https://i.ytimg.com/vi/dHLOv0jUa58/maxresdefault.jpg',
 			alternateName: 'Chicken & Waffles'
 		},
