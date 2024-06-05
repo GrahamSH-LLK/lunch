@@ -170,7 +170,7 @@
 								rgba(0, 0, 0, 0.6)
 							  ), url("${encodeURI(meal.image)}");`}
 								class="h-48 w-full rounded-md bg-cover bg-center mr-2 items-end flex max-w-[368px] snap-center"
-								in:fade={{ duration: 300, delay: 180 }} out:fade={{ duration: 200 }}
+								in:slide={{ duration: 300, delay: 180, axis: 'x' }} out:slide={{ duration: 200, axis: 'x' }}
 							>
 								<div class="w-full flex justify-between items-center m-2">
 									<span class="text-white mr-1 min-w-40">{meal.componentEnglishName}</span>
