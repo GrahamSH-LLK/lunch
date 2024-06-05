@@ -226,22 +226,22 @@
 												</div>
 											</div>
 											
-											<table class="w-64 p-4 border-2 border-black border-spacing-4">
-												<thead class="border-b border-b-black px-2">
+											<table class="w-64 p-4 border-2 border-primary  border-spacing-4">
+												<thead class="border-b border-b-primary px-2">
 													<tr>
 														<th class="font-black text-2xl" colspan="2">Nutrition Facts</th>
 													</tr>
 												</thead>
 
 												<tbody>
-													<tr class="bg-black h-2 px-1">
+													<tr class="bg-primary h-2 px-1">
 														<td />
 													</tr>
 													<tr
 														><p class="font-bold px-1">Amount Per Serving</p>
 														<p class="text-3xl font-extrabold px-1">Calories {meal['calories']}</p>
 													</tr>
-													<tr class="bg-black h-1 px-1">
+													<tr class="bg-primary h-1 px-1">
 														<td />
 													</tr>
 													<tr>
