@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit';
 import Fuse from 'fuse.js';
 import { CalendarDate } from '@internationalized/date';
 /** @type {import('./$types').PageLoad} */
-export async function load({ params, fetch }) {
+export async function load({ params, fetch, url }) {
 	let normalURL = params.slug != 'today';
 	let date = normalURL
 		? params.slug
@@ -372,5 +372,7 @@ export async function load({ params, fetch }) {
 	today = today.sort((a, b) => {
 		return a.id > b.id ? 1 : -1;
 	});
-	return { today: today, date: dateNative, dateObj, todayDate: normalURL ? null : new Date(date) };
+	const { pathname } = url;
+
+	return { today: today, date: dateNative, dateObj, todayDate: normalURL ? null : new Date(date), pathname };
 }

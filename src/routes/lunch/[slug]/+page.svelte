@@ -9,6 +9,7 @@
 	import { StarFilled, Star } from 'svelte-radix';
 	import StarRating from '@ernane/svelte-star-rating';
 	import {today as getToday} from '@internationalized/date'
+	import {fade, slide} from 'svelte/transition'
 	let config = {
 		readOnly: false,
 		countStars: 5,
@@ -149,17 +150,19 @@
 	<DatePicker bind:value={dateObj} />
 </Nav>
 
-<div class="m-4 ml-8">
+<div class="m-4 ml-8" >
 	{#if date.getDay() == 0 || date.getDay() == 6}
 		<h2 class="text-2xl">Sorry, no lunch today!</h2>
 		<p>It's a weekend!</p>
 	{:else}
 		<ul>
 			{#each today as category}
+			
 				<li>
 					<h2 class="font-semibold text-2xl my-1">{category.name}</h2>
 					<div class="flex overflow-x-auto w-full snap-x">
 						{#each category.items as meal}
+						{#key meal.componentEnglishName}
 							<div
 								style={`background-image: linear-gradient(
 								to bottom,
@@ -167,6 +170,7 @@
 								rgba(0, 0, 0, 0.6)
 							  ), url("${encodeURI(meal.image)}");`}
 								class="h-48 w-full rounded-md bg-cover bg-center mr-2 items-end flex max-w-[368px] snap-center"
+								in:fade={{ duration: 300, delay: 180 }} out:fade={{ duration: 200 }}
 							>
 								<div class="w-full flex justify-between items-center m-2">
 									<span class="text-white mr-1 min-w-40">{meal.componentEnglishName}</span>
@@ -287,6 +291,7 @@
 									</Sheet.Root>
 								</div>
 							</div>
+							{/key}
 						{/each}
 					</div>
 				</li>
