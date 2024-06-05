@@ -8,6 +8,7 @@
 	import * as Sheet from '$lib/components/ui/sheet';
 	import { StarFilled, Star } from 'svelte-radix';
 	import StarRating from '@ernane/svelte-star-rating';
+	import {today as getToday} from '@internationalized/date'
 	let config = {
 		readOnly: false,
 		countStars: 5,
@@ -120,6 +121,9 @@
 	const uppercaseFirstLetter = (string) => {
 		return string[0].toUpperCase() + string.substring(1);
 	};
+	const goToToday= ()=> {
+		dateObj = getToday('America/New_York')
+	}
 </script>
 
 {#if today[0].items.length}
@@ -141,7 +145,7 @@
 	/>
 {/if}
 <Nav emoji={'🍽️'} pagename="Lunch">
-	<Button href="/lunch/today" class="mr-2" target="_blank">Today</Button>
+	<Button  class="mr-2" target="_blank" on:click={goToToday}>Today</Button>
 	<DatePicker bind:value={dateObj} />
 </Nav>
 
