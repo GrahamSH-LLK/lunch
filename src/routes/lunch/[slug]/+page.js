@@ -1,8 +1,14 @@
 import { error } from '@sveltejs/kit';
 import Fuse from 'fuse.js';
-import { CalendarDate } from '@internationalized/date';
+import {
+	CalendarDate,
+	isSameDay,
+	parseDate,
+} from '@internationalized/date';
 /** @type {import('./$types').PageLoad} */
 export async function load({ params, fetch, url }) {
+	
+
 	let normalURL = params.slug != 'today';
 	let date = normalURL
 		? params.slug
@@ -26,7 +32,6 @@ export async function load({ params, fetch, url }) {
 		}
 	);
 	let data = await res.json();
-	//console.log(data.data["__type"].fields);
 	let today = [];
 	let images = [
 		{
@@ -322,19 +327,6 @@ export async function load({ params, fetch, url }) {
 		specialSearchIndexes[specialSearchSet] = new Fuse(specialSearchSets[specialSearchSet], options);
 	}
 	const fuse = new Fuse(images, options);
-	/*
-	for (let mealdex in data.data.menuTypes[0].items) {
-		let meal = data.data.menuTypes[0].items[mealdex];
-
-		if (meal.product.is_ancillary) {
-			let newMeal = { name: meal.product.name, items: [] };
-			today.push(newMeal);
-		} else {
-			let result = fuse.search(meal.product.name)[0]?.item.image;
-			meal.product.image = result;
-			today[today.length - 1].items.push(meal.product);
-		}
-	}*/
 	let dateNative = new Date(date);
 	let dateObj = new CalendarDate(
 		dateNative.getFullYear(),
@@ -343,7 +335,7 @@ export async function load({ params, fetch, url }) {
 	);
 
 	if (!data.result.length) {
-		return { today: [], date: dateNative, dateObj, todayDate: normalURL ? null : new Date(date) };
+		throw error(400, 'invalid date');
 	}
 	for (let meal of data.result[0].menuRecipiesData) {
 		if (
@@ -374,5 +366,11 @@ export async function load({ params, fetch, url }) {
 	});
 	const { pathname } = url;
 
-	return { today: today, date: dateNative, dateObj, todayDate: normalURL ? null : new Date(date), pathname };
+	return {
+		today: today,
+		date: dateNative,
+		dateObj,
+		todayDate: normalURL ? null : new Date(date),
+		pathname,
+	};
 }

@@ -10,10 +10,10 @@
 
 <div class="flex w-full px-6 py-4 bg-muted justify-between content-center border-b">
 	<span class=" font-bold text-3xl text-primary"><a href="/">{emoji} <span class="sm:inline hidden">LHS {pagename}</span></a></span>
-	<div class="flex items-center">
+	<div class="flex items-center gap-2">
 		<slot></slot>
 
-		<Button class="ml-2" on:click={toggleMode} variant="outline" size="icon">
+		<Button  on:click={toggleMode} variant="outline" size="icon">
 			<Sun
 				class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
 			/>

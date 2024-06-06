@@ -28,6 +28,7 @@
 	import DatePicker from '$lib/DatePicker.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { onMount } from 'svelte';
+	import { quintIn, quintOut } from 'svelte/easing';
 	const getMyRating = async (product_id) => {
 		if (!localStorage.uuid) {
 			localStorage.setItem('uuid', crypto.randomUUID());
@@ -149,7 +150,7 @@
 	/>
 {/if}
 <Nav emoji={'🍽️'} pagename="Lunch">
-	<Button  class="mr-2" target="_blank" on:click={goToToday}>Today</Button>
+	<Button   target="_blank" on:click={goToToday}>Today</Button>
 	<DatePicker bind:value={dateObj} />
 </Nav>
 
@@ -173,7 +174,7 @@
 								rgba(0, 0, 0, 0.6)
 							  ), url("${encodeURI(meal.image)}");`}
 								class="h-48 w-full rounded-md bg-cover bg-center mr-2 items-end flex max-w-[368px] snap-center"
-								in:fade={{ duration: 300, delay: 180, axis: 'x' }} out:fade={{ duration: 200, axis: 'x' }}
+								in:slide={{ duration: 200, delay: 80, axis: 'x', easing:quintIn }} out:slide={{ duration: 200, axis: 'x',easing:quintOut }}
 							>
 								<div class="w-full flex justify-between items-center m-2">
 									<span class="text-white mr-1 min-w-40">{meal.componentEnglishName}</span>
