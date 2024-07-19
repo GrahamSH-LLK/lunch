@@ -34,6 +34,8 @@
 		"@internationalized/date": "^3.5.4",
 		"@svelte-plugins/tooltips": "^3.0.0",
 		"@sveltejs/adapter-cloudflare": "^4.2.0",
+		"@unovis/svelte": "^1.4.3",
+		"@unovis/ts": "^1.4.3",
 		"bits-ui": "^0.21.10",
 		"chart.js": "^4.4.3",
 		"clsx": "^2.1.1",

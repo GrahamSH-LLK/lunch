@@ -1,89 +1,68 @@
 <script>
 	export let data;
 
-	import { Doughnut } from 'svelte-chartjs';
-
+	import { VisSingleContainer, VisBulletLegend, VisDonut, VisTooltip } from '@unovis/svelte';
+	import {Donut} from '@unovis/ts'
 	import Nav from '$lib/Nav.svelte';
 	import Card from '$lib/Card.svelte';
 	import 'chart.js/auto';
+
+	const normalizedSubtitle = `Alike days are grouped`;
+	let fridayItems =[];
+	let fridayData = [];
+	$: {
+		fridayItems = data.fridays.items
+		fridayData = data.fridays.data || [];
+	}
+	const value = (d) => d
+	const triggers = { [Donut.selectors.segment]: (d) => d.data };
+
 </script>
 
 <Nav emoji="📅" pagename="Dates"></Nav>
 
-<div class="flex md:flex-row  flex-col m-6 gap-2">
+<div class="flex md:flex-row flex-col m-6 gap-2">
 	<div>
-		<Card>
-			<h3 class="text-3xl">Normalized Fridays</h3>
-			<span class="italic font-light text-gray-500">Alike days are grouped</span>
+		<Card title="Normalized Fridays" subtitle={normalizedSubtitle}>
 			<div class="h-80 w-80">
-				<Doughnut
-					data={{
-						labels: Object.keys(data.fridays.countPerDayReduced).map(
-							(x) => `Day ${x} or ${parseInt(x) + 4}`
-						),
-						datasets: [
-							{
-								data: Object.values(data.fridays.countPerDayReduced)
-							}
-						]
-					}}
-					options={{ responsive: true }}
-				></Doughnut>
+				<VisBulletLegend items={data.fridays.itemsNormalized}  />
+				<VisSingleContainer data={data.fridays.dataNormalized}>
+					<VisDonut value={value} arcWidth={30} />
+					<VisTooltip {triggers}></VisTooltip>
+				</VisSingleContainer>
+
+			
 			</div>
 		</Card>
-		<Card>
-		<h3 class="text-3xl">All Fridays</h3>
-		<div class="h-80 w-80">
-			<Doughnut
-				data={{
-					labels: Object.keys(data.fridays.countPerDay).map((x) => `Day ${x}`),
-					datasets: [
-						{
-							data: Object.values(data.fridays.countPerDay)
-						}
-					]
-				}}
-				options={{ responsive: true }}
-			></Doughnut>
-		</div></Card>
+		<Card title="All Fridays">
+			<div class="h-80 w-80">
+				<VisBulletLegend items={data.fridays.items}  />
+				<VisSingleContainer data={data.fridays.data}>
+					<VisDonut value={value} arcWidth={30}/>
+					<VisTooltip {triggers}></VisTooltip>
+
+				</VisSingleContainer>
+			</div></Card
+		>
 	</div>
 	<div>
-		<Card>
-		<h3 class="text-3xl">Normalized Days</h3>
-		<span class="italic font-light text-gray-500">Alike days are grouped</span>
-
-		<div class="h-80 w-80">
-			<Doughnut
-				data={{
-					labels: Object.keys(data.allDays.countPerDayReduced).map(
-						(x) => `Day ${x} or ${parseInt(x) + 4}`
-					),
-					datasets: [
-						{
-							data: Object.values(data.allDays.countPerDayReduced)
-						}
-					]
-				}}
-				options={{ responsive: true }}
-			></Doughnut>
-		</div>
-	</Card>
-	<Card>
-
-		<h3 class="text-3xl">All Days</h3>
-		<div class="h-80 w-80">
-			<Doughnut
-				data={{
-					labels: Object.keys(data.allDays.countPerDay).map((x) => `Day ${x}`),
-					datasets: [
-						{
-							data: Object.values(data.allDays.countPerDay)
-						}
-					]
-				}}
-				options={{ responsive: true }}
-			></Doughnut>
-		</div>
-	</Card>
+		<Card title="Normalized Days" subtitle={normalizedSubtitle}>
+			<div class="h-80 w-80">
+				<VisBulletLegend items={data.allDays.itemsNormalized}  />
+				<VisSingleContainer data={data.allDays.dataNormalized}>
+					<VisDonut value={value} arcWidth={30}/>
+					<VisTooltip {triggers}></VisTooltip>
+				</VisSingleContainer>
+			</div>
+		</Card>
+		<Card title="All Days">
+			<div class=" w-80">
+				<VisBulletLegend items={data.allDays.items}  />
+				<VisSingleContainer data={data.allDays.data}>
+					<VisDonut value={value} arcWidth={30}/>
+					<VisTooltip {triggers}></VisTooltip>
+				</VisSingleContainer>
+			</div>
+		</Card>
 	</div>
 </div>
