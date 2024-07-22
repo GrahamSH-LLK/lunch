@@ -29,15 +29,17 @@ export const load = async () => {
 		}, {});
 		const itemsNormalized = Object.entries(countPerDayReduced).map(([key, value]) => {
 			return {
-				name: `Day ${key}`,
-				inactive: false
+				name: `Day ${key} and ${parseInt(key) + 4}`,
+				inactive: false,
+				value
 			};
 		});
 		const dataNormalized = Object.values(countPerDayReduced);
 		const items = Object.entries(countPerDay).map(([key, value]) => {
 			return {
 				name: `Day ${key}`,
-				inactive: false
+				inactive: false,
+				value
 			};
 		});
 		const data = Object.values(countPerDay);

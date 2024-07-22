@@ -2,9 +2,10 @@
 	export let name;
 	export let info;
 	export let emoji;
+	export let url;
 </script>
 
-<a href="/{name.toLowerCase()}">
+<a href="/{url || name.toLowerCase()}">
 	<li class="flex justify-between gap-x-6 py-5 items-center">
 		<div class="flex min-w-0 gap-x-4">
 			<img
