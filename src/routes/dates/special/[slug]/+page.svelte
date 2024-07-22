@@ -49,7 +49,7 @@
 	{#each data.schedules as schedule}
 		<div>
 			<h2 class="font-bold text-3xl mb-2">{schedule.name}</h2>
-			<p class="text-gray-600">
+			<p class="text-gray-600 dark:text-gray-200">
 				{#each Object.entries(schedule.dates) as [i, date]}
 					{formatDate(date)}{i < schedule.dates.length - 1 ? ', ' : ''}
 				{/each}
@@ -57,10 +57,10 @@
 			<div class="flex">
 				<div class="flex-col flex">
 					{#each schedule.blocks as block}
-						<div class="flex-row flex border border-gray-100">
-							<div class="font-semibold p-2 border-r border-gray-200">{titleCase(block.block)}</div>
+						<div class="flex-row flex border border-gray-100 dark:border-gray-500">
+							<div class="font-semibold p-2 border-r border-gray-100 dark:border-gray-500">{titleCase(block.block)}</div>
 							{#each block.times as time}
-								<div class="text-gray-600 border-r border-gray-100 h-full p-2">
+								<div class="text-gray-600 dark:text-gray-300 border-r border-gray-200 dark:border-gray-600 h-full p-2">
 									{titleCase(time)}
 								</div>
 							{/each}
@@ -68,7 +68,7 @@
 					{/each}
 				</div>
 			</div>
-			<div class="prose">
+			<div class="prose dark:prose-invert">
 				<h2>Notes</h2>
 				<SvelteMarkdown source={schedule.description} />
 			</div>
