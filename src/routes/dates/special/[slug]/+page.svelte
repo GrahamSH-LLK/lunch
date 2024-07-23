@@ -67,7 +67,7 @@
 					}}
 				>
 					<div
-						class={`p-4 px-8 text-sm cursor-pointer border-l-2 text-gray-600 dark:text-gray-300 border-white dark:border-gray-900 hover:border-blue-500/25 dark:hover:border-blue-400/25 hover:bg-blue-100/50 dark:hover:bg-blue-900/10 ${index === i ? 'bg-blue-100/50 dark:bg-blue' : ''}`}
+						class={`p-4 px-8 text-sm cursor-pointer border-l-2 text-gray-600 dark:text-gray-300 border-white dark:border-gray-900 hover:border-blue-500/25 dark:hover:border-blue-400/25 hover:bg-blue-100/50 dark:hover:bg-blue-900/10 ${index === i ? 'bg-blue-100/50 dark:bg-blue-800/50' : ''}`}
 					>
 						<div class="font-semibold flex justify-between">
 							<p>{schedule.name}</p>
