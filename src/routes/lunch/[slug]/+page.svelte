@@ -265,11 +265,11 @@
 														</p>
 														<p class="px-1">
 															<span class="font-bold">Cholesterol</span>
-															{meal['cholesterol']}g
+															{meal['cholesterol']}mg
 														</p>
 														<p class="px-1">
 															<span class="font-bold">Sodium</span>
-															{meal['sodium']}g
+															{meal['sodium']}mg
 														</p>
 
 														<p class="px-1">
