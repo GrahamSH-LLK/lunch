@@ -88,7 +88,7 @@
 		</div>
 		<div class="flex-col items-stretch p-4 border-l border-gray-200 w-full flex-1 hidden md:flex h-screen overflow-y-auto">
 			{#if currSchedule}
-				<div>
+				<div id="day-container">
 					<h2 class="font-bold text-3xl mb-2">{currSchedule.name}</h2>
 					<p class="text-gray-600 dark:text-gray-200">
 						{#each Object.entries(currSchedule.dates) as [i, date]}
