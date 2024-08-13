@@ -57,7 +57,7 @@
 </Nav>
 <div class="m-6 flex flex-col gap-4">
 	<div class="flex-row flex h-screen">
-		<div class="w-96 overflow-y-auto h-screen">
+		<div class="w-96 overflow-y-auto min-h-screen">
 			{#each Object.entries(data.schedules) as [i, schedule]}
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<!-- svelte-ignore a11y-no-static-element-interactions -->
