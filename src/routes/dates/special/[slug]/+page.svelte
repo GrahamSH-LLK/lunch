@@ -44,6 +44,12 @@
 	let index = 0;
 	let currSchedule;
 	$: currSchedule = data.schedules[index];
+	const isInFutureIgnoringTime = (date) => {
+		// ignore time of today, respond true if the date is in the future or today
+		const cleanedDate = new Date(date);
+        cleanedDate.setHours(0, 0, 0, 0);
+        return cleanedDate > new Date();
+	}
 </script>
 
 <Nav pagename="Special Dates" emoji="📆">
@@ -71,7 +77,7 @@
 					>
 						<div class="font-semibold flex justify-between">
 							<p>{schedule.name}</p>
-							<p class="font-normal">{formatDateShort(schedule.dates[0])}</p>
+							<p class="font-normal">{formatDateShort(schedule.dates.find((d) => isInFutureIgnoringTime(d) ) || schedule.dates[0])}</p>
 						</div>
 						<p class="h-10 text-ellipsis overflow-hidden my-1">
 							<SvelteMarkdown source={schedule.description}></SvelteMarkdown>
