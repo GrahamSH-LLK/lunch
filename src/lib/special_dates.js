@@ -170,11 +170,12 @@ export const schedules = [
 		name: 'AM Connect Block Schedule',
 		description: 'Schedule for AM Connect Block days',
 		dates: [
-			new Date('2023-09-08'),
-			new Date('2023-10-20'),
-			new Date('2023-12-15'),
-			new Date('2024-02-28'),
-			new Date('2024-04-10'),
+			new Date('2024-09-24'),
+			new Date('2024-11-26'),
+			new Date('2025-01-08'),
+			new Date('2025-02-26'),
+			new Date('2025-04-10'),
+			new Date('2025-05-25'),
 			new Date(
 				'2024-05-29'
 			) /* TODO: Update dates for AM Connect Block once actual dates come out */
