@@ -222,12 +222,13 @@ export const schedules = [
 	{
 		name: 'PM Connect Block Schedule',
 		description: 'Schedule for PM Connect Block days',
-		dates: [
-			new Date('2023-09-29'),
-			new Date('2023-11-17'),
-			new Date('2024-03-20'),
-			new Date('2024-05-08')
-		],
+		dates: [  new Date("September 5, 2024"),
+			new Date("November 6, 2024"),
+			new Date("December 18, 2024"),
+			new Date("January 30, 2025"),
+			new Date("March 18, 2025"),
+			new Date("April 29, 2025")
+		  ],
 		blocks: [
 			{
 				block: '1st Block',
