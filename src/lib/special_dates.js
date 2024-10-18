@@ -271,7 +271,7 @@ export const schedules = [
 	{
 		name: 'All-School Pep Rally',
 		description: 'Schedule for All-School Pep Rally day',
-		dates: [new Date('2024-10-18')],
+		dates: [new Date('2024-10-25')],
 		description: `* F5 moved up in order to not disrupt lunch block
 * Note: F, G, and H are switched to keep the regular lunch schedule.
 * Students will sit in their designated areas with their grade level.
