@@ -271,7 +271,7 @@ export const schedules = [
 	{
 		name: 'All-School Pep Rally',
 		description: 'Schedule for All-School Pep Rally day',
-		dates: [new Date('2024-10-25')],
+		dates: [new Date('October 25, 2024')],
 		description: `* F5 moved up in order to not disrupt lunch block
 * Note: F, G, and H are switched to keep the regular lunch schedule.
 * Students will sit in their designated areas with their grade level.
@@ -279,35 +279,35 @@ export const schedules = [
 * In Powerschool, this time is shown as "Homeroom".`,
 		blocks: [
 			{
-				block: 'A5',
+				block: 'B8',
 				times: ['7:48 - 8:28']
 			},
 			{
-				block: 'B5',
+				block: 'C8',
 				times: ['8:32 - 9:12']
 			},
 			{
-				block: 'C5',
+				block: 'D8',
 				times: ['9:16 - 9:56']
 			},
 			{
-				block: 'F5',
+				block: 'G8',
 				times: ['10:00 - 10:40']
 			},
 			{
-				block: 'E Block 1st Lunch',
+				block: 'H Block 1st Lunch',
 				times: ['1st Lunch 10:44 - 11:10', 'Class 11:14 - 12:11']
 			},
 			{
-				block: 'E Block 2nd Lunch',
+				block: 'H Block 2nd Lunch',
 				times: ['Class 10:44 - 11:12', '2nd Lunch 11:14 - 11:40', 'Class 11:44 - 12:11']
 			},
 			{
-				block: 'E Block 3rd Lunch',
+				block: 'H Block 3rd Lunch',
 				times: ['Class 10:44 - 11:40', '3rd Lunch 11:44 - 12:11']
 			},
 			{
-				block: 'G5',
+				block: 'F8',
 				times: ['12:15 - 12:55']
 			},
 			{
