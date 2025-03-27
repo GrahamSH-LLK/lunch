@@ -53,7 +53,6 @@ export async function load({ params, fetch, url }) {
 
       data = await res.json();
    }
-   console.log(data, res.url)
 	let today = [];
 	let images = [
 		{
@@ -359,7 +358,7 @@ export async function load({ params, fetch, url }) {
 	if (!data.result.length) {
 		throw error(400, 'invalid date');
 	}
-	for (let meal of data.result[0].menuRecipiesData) {
+	for (let meal of data.result[0].allMenuRecipes) {
 		if (
 			!today.some((x) => {
 				return x.id == meal.rowId;
@@ -377,7 +376,7 @@ export async function load({ params, fetch, url }) {
 		let index = specialSearchIndexes[category.name] || fuse;
 
 		let result =
-			index.search(meal.componentEnglishName)[0]?.item.image ||
+			index.search(meal.englishAlternateName)[0]?.item.image ||
 			specialSearchSets[category.name]?.[0]?.image;
 
 		meal.image = result;

@@ -23,7 +23,7 @@
 										class="h-48 w-full rounded-md bg-cover bg-center relative"
 									>
 										<p class="absolute bottom-1 left-1 text-2xl text-white">
-											{meal.componentEnglishName}
+											{meal.componentName}
 										</p>
 									</div>
 									<div class="flex justify-between pt-2">
