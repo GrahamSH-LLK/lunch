@@ -15,7 +15,7 @@ export async function load({ params, fetch, url }) {
 		: new Date().toLocaleString(undefined, { day: '2-digit', year: 'numeric', month: '2-digit' });
 
 	let res = await fetch(
-		`https://apiservicelocators.fdmealplanner.com/api/v1/data-locator-webapi/3/meals?accountId=78&endDate=${date}&isActive=true&isStandalone&locationId=430&mealPeriodId=2&menuId=0&monthId=${new Date(date).getMonth() + 1}&selectedDate=${date}&startDate=${date}&tenantId=3&timeOffset=0&year=2024`,
+		`https://apiservicelocators.fdmealplanner.com/api/v1/data-locator-webapi/3/meals?accountId=78&endDate=${date}&isActive=true&isStandalone&locationId=430&mealPeriodId=2&menuId=0&monthId=${new Date(date).getMonth() + 1}&selectedDate=${date}&startDate=${date}&tenantId=3&timeOffset=0&year=2025`,
 		{
 			headers: {
 				accept: 'application/json, text/plain, */*',
@@ -32,6 +32,28 @@ export async function load({ params, fetch, url }) {
 		}
 	);
 	let data = await res.json();
+   if (data.message == "MN0056") {
+      let res = await fetch(
+         `https://apiservicelocators.fdmealplanner.com/api/v1/data-locator-webapi/3/meals?accountId=78&endDate=${date}&isActive=true&isStandalone&locationId=430&mealPeriodId=2&menuId=128861&monthId=${new Date(date).getMonth() + 1}&selectedDate=${date}&startDate=${date}&tenantId=3&timeOffset=0&year=2025`,
+         {
+            headers: {
+               accept: 'application/json, text/plain, */*',
+               'accept-language': 'en-US,en;q=0.9',
+               'sec-ch-ua': '"Chromium";v="104", " Not A;Brand";v="99", "Google Chrome";v="104"',
+               'sec-ch-ua-mobile': '?0',
+               'sec-ch-ua-platform': '"macOS"',
+               'sec-fetch-dest': 'empty',
+               'sec-fetch-mode': 'cors',
+               'sec-fetch-site': 'cross-site'
+            },
+            body: null,
+            method: 'GET'
+         }
+      );
+
+      data = await res.json();
+   }
+   console.log(data, res.url)
 	let today = [];
 	let images = [
 		{
