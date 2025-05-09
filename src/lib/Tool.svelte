@@ -8,11 +8,10 @@
 <a href="/{url || name.toLowerCase()}">
 	<li class="flex justify-between gap-x-6 py-5 items-center">
 		<div class="flex min-w-0 gap-x-4">
-			<img
-				class="h-12 w-12 flex-none  "
-				src={`https://emojiapi.dev/api/v1/${emoji}.svg`}
-				alt=""
-			/>
+         <svg xmlns="http://w3.org/2000/svg" viewBox="0 0 100 100" class="h-12 w-12 flex-none">
+            <text y=".9em" font-size="90">{emoji}</text>
+            </svg>
+
 			<div class="min-w-0 flex-auto">
 				<p class="text-sm font-semibold leading-6 text-primary">{name}</p>
 				<p class="mt-1 truncate text-xs leading-5 text-primary opacity-70">{info}</p>
