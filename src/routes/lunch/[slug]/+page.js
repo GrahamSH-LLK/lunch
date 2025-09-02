@@ -286,7 +286,7 @@ export async function load({ params, fetch, url }) {
 		}
 	];
 	let specialSearchSets = {
-		'Pizza Picks': [
+		'La Cucina': [
 			{
 				name: 'Cheese Pizza',
 				image:
@@ -297,14 +297,14 @@ export async function load({ params, fetch, url }) {
 				image: 'https://www.tasteatlas.com/images/dishes/b05a0af72ad845f3a6abe16143d7853a.jpg?pizza'
 			}
 		],
-		'Deli Picks': [
+		'Great American Sandwich Co': [
 			{
 				name: 'Made to Order Deli',
 				image:
 					'https://homemaderecipes.com/wp-content/uploads/2016/08/Two-Bacon-Burgers-on-Plates-deli-sandwiches-px-feature.jpg'
 			}
 		],
-		'Express Picks': [
+		"Miss Ruby's Grill": [
 			{
 				name: 'Cheeseburger on Bun',
 				alternateName: 'Double Bacon Burger',
@@ -325,7 +325,7 @@ export async function load({ params, fetch, url }) {
 					'https://mrs.mdek12.org//images/made/photos_recipes/2015_732_chicken_patty_sandwich_300_200_int_c1.jpg'
 			}
 		],
-		'Market Fresh': [
+		'Real Meals Express': [
 			{
 				name: 'Garden Salad',
 				image:
